@@ -303,10 +303,10 @@ export default function Cafe({ onAddToCart }) {
     <section className={styles.cafePage}>
       <div className={styles.hero}>
         <article className={`${styles.heroText} ${styles.originText}`}>
-          <h2>Origen Unico</h2>
+          <h2>Origen Único</h2>
           <p>
             Nuestras semillas provienen de las alturas de los Andes peruanos,
-            donde el clima frio de montana, los suelos fertiles y la cosecha
+            donde el clima frío de montaña, los suelos fértiles y la cosecha
             paciente ayudan a formar una taza con identidad propia.
           </p>
         </article>
@@ -329,9 +329,9 @@ export default function Cafe({ onAddToCart }) {
         <article className={`${styles.heroText} ${styles.processText}`}>
           <h2>Proceso Artesanal</h2>
           <p>
-            Utilizamos metodos tradicionales combinados con tecnicas modernas
-            para preservar la esencia del cafe. El secado, la seleccion y el
-            tostado se trabajan con precision para cuidar cada matiz.
+            Utilizamos metodos tradicionales combinados con técnicas modernas
+            para preservar la esencia del café. El secado, la selección y el
+            tostado se trabajan con precisión para cuidar cada matriz.
           </p>
         </article>
 

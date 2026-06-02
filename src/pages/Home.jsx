@@ -195,7 +195,9 @@ export default function Home() {
             <br />
             Floral, dulce y equilibrado.
           </p>
-          <button className={styles.discoverButton}>Descubrir más</button>
+          <Link className={styles.discoverButton} to="/cafe">
+            Descubrir más
+          </Link>
         </div>
         <div className={styles.originProductVisual}>
           <img

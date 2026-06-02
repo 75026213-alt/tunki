@@ -14,9 +14,8 @@ import productImage from "../../assets/recetas/bebidas/granos de cafe.png";
 import yapeImage from "../../assets/carrito/yape.png";
 import styles from "./carrito.module.css";
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth.js";
-import LoginModal from "../../components/LoginModal.jsx";
 import { createOrder } from "../../services/api.js";
 import { downloadOrderPDF } from "../../services/pdf.js";
 
@@ -34,7 +33,6 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
   const [deliveryType, setDeliveryType] = useState("pickup");
   const [agency, setAgency] = useState("shalom");
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [paymentLoading, setPaymentLoading] = useState(false);
   const [paymentError, setPaymentError] = useState("");
   const [paymentSuccess, setPaymentSuccess] = useState(false);
@@ -48,6 +46,7 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
     buyerPhone: "",
   });
   const { isAuthenticated, user } = useAuth();
+  const navigate = useNavigate();
   const cartItemsRef = useRef(null);
 
   const shippingCost = deliveryType === "agency" ? 8 : 0;
@@ -151,14 +150,9 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
       return;
     }
     if (!isAuthenticated) {
-      setIsLoginModalOpen(true);
+      navigate("/login");
       return;
     }
-    setIsPaymentOpen(true);
-  };
-
-  const handleLoginSuccess = () => {
-    setIsLoginModalOpen(false);
     setIsPaymentOpen(true);
   };
 
@@ -392,12 +386,6 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
           </button>
         </aside>
       </div>
-
-      <LoginModal
-        isOpen={isLoginModalOpen}
-        onClose={() => setIsLoginModalOpen(false)}
-        onLoginSuccess={handleLoginSuccess}
-      />
 
       {isPaymentOpen && (
         <div className={styles.paymentOverlay}>
