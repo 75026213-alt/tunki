@@ -11,15 +11,15 @@ import farmerHarvest from "../assets/agricultores/gricultores.png";
 const galleryImages = [
   {
     src: farmersStore,
-    alt: "Agricultores con bolsas de cafe Tunki",
+    alt: "Agricultores con bolsas de café Tunki",
   },
   {
     src: farmersBags,
-    alt: "Agricultores junto a sacos de cafe",
+    alt: "Agricultores junto a sacos de café",
   },
   {
     src: farmerHarvest,
-    alt: "Agricultor cosechando cafe",
+    alt: "Agricultor cosechando café",
   },
 ];
 

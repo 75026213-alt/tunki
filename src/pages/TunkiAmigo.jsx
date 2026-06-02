@@ -15,13 +15,13 @@ const communityMembers = [
     id: "jean-paul",
     name: "Jean Paul Rodriguez",
     role: "Barista",
-    quote: "Mi momento favorito del dia es con cafe.",
+    quote: "Mi momento favorito del día es con café.",
     image: baristaImage,
   },
   {
     id: "carlos",
     name: "Carlos Ramirez",
-    role: "Catador de Cafe",
+    role: "Catador de Café",
     quote: "Destaca por su aroma intenso y sabor suave.",
     image: degustadorImage,
   },
@@ -46,19 +46,19 @@ const backgroundImages = [portadaCafe, fondo2, fondo3];
 const initialComments = [
   {
     name: "Romina Sanchez",
-    text: "El aroma y sabor del cafe Tunki realmente marcan la diferencia. Una experiencia que volveria a repetir.",
+    text: "El aroma y sabor del café Tunki realmente marcan la diferencia. Una experiencia que volveria a repetir.",
     image: commentOneImage,
     rating: 5,
   },
   {
     name: "Emily Johnson",
-    text: "Me encanto probar este cafe, tiene un sabor muy equilibrado y se nota la calidad del cafe peruano.",
+    text: "Me encantó probar este café, tiene un sabor muy equilibrado y se nota la calidad del café peruano.",
     image: commentTwoImage,
     rating: 5,
   },
   {
     name: "Daniel Smith",
-    text: "Un cafe delicioso para compartir en cualquier momento del dia. Definitivamente lo recomiendo.",
+    text: "Un café delicioso para compartir en cualquier momento del día. Definitivamente lo recomiendo.",
     image: commentThreeImage,
     rating: 5,
   },
@@ -260,7 +260,7 @@ export default function TunkiAmigo() {
 
       <section className={styles.commentsSection}>
         <p className={styles.inviteText}>
-          "!Tu pasion tiene premio! Comparte tu foto y recibe un beneficio
+          "!Tu pasión tiene premio! Comparte tu foto y recibe un beneficio
           exclusivo".
         </p>
         <h2>Comentarios</h2>
@@ -331,7 +331,7 @@ export default function TunkiAmigo() {
             </label>
 
             <fieldset className={styles.ratingField}>
-              <legend>Valoracion</legend>
+              <legend>Valoración</legend>
               <div className={styles.ratingOptions}>
                 {[1, 2, 3, 4, 5].map((rating) => (
                   <label key={rating}>
@@ -383,7 +383,7 @@ export default function TunkiAmigo() {
             </div>
 
             <div className={styles.modalCopy}>
-              <p>Tu pausa tambien cuenta</p>
+              <p>Tu pausa también cuenta</p>
               <h2>Comparte tu momento</h2>
             </div>
 
@@ -401,7 +401,7 @@ export default function TunkiAmigo() {
             )}
 
             <label className={styles.formField}>
-              Descripcion
+              Descripción
               <textarea
                 onChange={(event) =>
                   setMomentForm((currentForm) => ({
@@ -409,7 +409,7 @@ export default function TunkiAmigo() {
                     description: event.target.value,
                   }))
                 }
-                placeholder="Describe donde estas disfrutando tu cafe Tunki..."
+                placeholder="Describe dónde estás disfrutando tu café Tunki..."
                 rows="4"
                 value={momentForm.description}
               />
