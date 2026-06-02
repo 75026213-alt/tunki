@@ -9,10 +9,10 @@ export default function Footer() {
         <div className={styles.socialBlock}>
           <h2>Siguenos</h2>
           <div className={styles.socialLinks}>
-            <a href="https://facebook.com" aria-label="Facebook">
+            <a href="https://www.facebook.com/profile.php?id=100063857180117&locale=es_LA" aria-label="Facebook">
               <FaFacebook />
             </a>
-            <a href="https://instagram.com" aria-label="Instagram">
+            <a href="https://www.instagram.com/tunki_coffee_peru/?hl=es" aria-label="Instagram">
               <FaInstagram />
             </a>
             <a href="https://twitter.com" aria-label="Twitter">
@@ -32,15 +32,15 @@ export default function Footer() {
           <div>
             <h2>Empresa</h2>
             <a href="/">Inicio</a>
-            <a href="/recetas">Nuestro Cafe</a>
+            <a href="/recetas">Nuestro Café</a>
             <a href="/tunki-amigo">Origen</a>
           </div>
 
           <div>
-            <h2>Informacion</h2>
+            <h2>Información</h2>
             <a href="/contacto">Contacto</a>
-            <a href="/privacidad">Politica de Privacidad</a>
-            <a href="/terminos">Terminos de Uso</a>
+            <a href="/privacidad">Política de Privacidad</a>
+            <a href="/terminos">Términos de Uso</a>
           </div>
         </nav>
       </div>

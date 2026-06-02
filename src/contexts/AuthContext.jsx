@@ -46,7 +46,7 @@ export function AuthProvider({ children }) {
     localStorage.setItem('authUser', JSON.stringify(nextUser));
 
     return {
-      message: 'Sesion iniciada',
+      message: 'Sesión iniciada',
       token: nextToken,
       user: nextUser,
     };
@@ -54,7 +54,7 @@ export function AuthProvider({ children }) {
 
   const login = useCallback(async (email, password) => {
     if (!email || !password) {
-      throw new Error('Email y contrasena requeridos');
+      throw new Error('Email y contraseña requeridos');
     }
 
     return saveSession(createDemoUser(email));

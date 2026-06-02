@@ -1,6 +1,6 @@
 import styles from "./Agricultores.module.css";
 import leavesImage from "../assets/agricultores/hoojas.png";
-import heroBasket from "../assets/agricultores/portada agricultores.svg";
+import heroBasket from "../assets/agricultores/fondo-prueba.png";
 import coffeeBean from "../assets/agricultores/cafe.png";
 import farmerOne from "../assets/agricultores/agricultor 1.png";
 import farmerTwo from "../assets/agricultores/agricultor 2.png";
@@ -37,8 +37,8 @@ export default function Agricultores() {
       >
         <div className={styles.heroCopyLeft}>
           <h1>
-            Detras de cada aroma y sabor, hay manos peruanas que cultivan cafe
-            con pasion y tradicion.
+            Detrás de cada aroma y sabor, hay manos peruanas que cultivan café
+            con pasión y tradición.
           </h1>
         </div>
 
@@ -46,8 +46,8 @@ export default function Agricultores() {
 
         <p className={styles.heroCopyRight}>
           Trabajamos junto a agricultores de comunidades peruanas que cultivan
-          cafe de especialidad de manera responsable y sostenible. Nuestro
-          compromiso es valorar su trabajo, respetar el origen del cafe y
+          café de especialidad de manera responsable y sostenible. Nuestro
+          compromiso es valorar su trabajo, respetar el origen del café y
           compartir contigo una experiencia autentica en cada taza.
         </p>
       </section>
@@ -63,8 +63,8 @@ export default function Agricultores() {
             <h2>Raul Mamani</h2>
             <strong>Putina Punco, Puno</strong>
             <p>
-              Productor de cafe de especialidad comprometido con la calidad,
-              tradicion y sostenibilidad.
+              Productor de café de especialidad comprometido con la calidad,
+              tradición y sostenibilidad.
             </p>
           </div>
         </article>
@@ -75,8 +75,8 @@ export default function Agricultores() {
             <h2>Wilson Sucaticona Larico</h2>
             <strong>Sandia, Puno</strong>
             <p>
-              Reconocido mundialmente por producir uno de los mejores cafes
-              organicos del mundo.
+              Reconocido mundialmente por producir uno de los mejores cafés
+              orgánicos del mundo.
             </p>
           </div>
           <div className={styles.imageWrap}>
@@ -88,7 +88,7 @@ export default function Agricultores() {
 
       <section className={styles.gallerySection}>
         <h2>
-          Gracias al trabajo de nuestros agricultores, cada taza de Tunki Cafe
+          Gracias al trabajo de nuestros agricultores, cada taza de Tunki Café
           lleva consigo historia, origen y autenticidad.
         </h2>
 

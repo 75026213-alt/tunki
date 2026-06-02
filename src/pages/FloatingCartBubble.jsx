@@ -32,7 +32,7 @@ export default function FloatingCartBubble({ items }) {
           </div>
 
           {totalItems === 0 ? (
-            <p className={styles.emptyText}>Aun no agregaste productos.</p>
+            <p className={styles.emptyText}>Aún no agregaste productos.</p>
           ) : (
             <div className={styles.itemList}>
               {latestItems.map((item) => (

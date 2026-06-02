@@ -146,9 +146,9 @@ export default function Home() {
         <div className={styles.heroOverlay} />
         <div className={styles.heroContent}>
           <div className={styles.heroCopy}>
-            <span className={styles.heroKicker}>Cafe peruano de altura</span>
+            <span className={styles.heroKicker}>Café peruano de altura</span>
             <h1>Tunki</h1>
-            <p>Una experiencia de origen, aroma y tradicion en cada taza.</p>
+            <p>Una experiencia de origen, aroma y tradición en cada taza.</p>
             <Link className={styles.originButton} to="/origen">
               Nuestro origen
             </Link>
@@ -172,7 +172,7 @@ export default function Home() {
           ))}
         </div>
         <p className={styles.qualityQuote}>
-          "Reconocido entre los mejores cafes del mundo"
+          "Reconocido entre los mejores cafés del mundo"
         </p>
       </section>
 
@@ -191,17 +191,17 @@ export default function Home() {
             representativo
           </h2>
           <p>
-            Origen unico de los Andes peruanos.
+            Origen único de los Andes peruanos.
             <br />
             Floral, dulce y equilibrado.
           </p>
-          <button className={styles.discoverButton}>Descubrir mas</button>
+          <button className={styles.discoverButton}>Descubrir más</button>
         </div>
         <div className={styles.originProductVisual}>
           <img
             className={styles.bagImage}
             src={bolsaCafe}
-            alt="Bolsa de cafe Tunki"
+            alt="Bolsa de café Tunki"
           />
           <img
             className={styles.coffeeDrawing}

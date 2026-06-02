@@ -13,21 +13,21 @@ import commentThreeImage from "../assets/tunki-amigo/comentario3.jpg";
 const communityMembers = [
   {
     id: "jean-paul",
-    name: "Jean Paul Rodriguez",
+    name: "Jean Paul Rodríguez",
     role: "Barista",
     quote: "Mi momento favorito del día es con café.",
     image: baristaImage,
   },
   {
     id: "carlos",
-    name: "Carlos Ramirez",
+    name: "Carlos Ramírez",
     role: "Catador de Café",
     quote: "Destaca por su aroma intenso y sabor suave.",
     image: degustadorImage,
   },
   {
     id: "ana",
-    name: "Ana Lopez",
+    name: "Ana López",
     role: "Barista Tunki",
     quote: "Hermoso lugar para aprender y compartir.",
     image: degustadorTwoImage,
@@ -46,7 +46,7 @@ const backgroundImages = [portadaCafe, fondo2, fondo3];
 const initialComments = [
   {
     name: "Romina Sanchez",
-    text: "El aroma y sabor del café Tunki realmente marcan la diferencia. Una experiencia que volveria a repetir.",
+    text: "El aroma y sabor del café Tunki realmente marcan la diferencia. Una experiencia que volvería a repetir.",
     image: commentOneImage,
     rating: 5,
   },
@@ -167,7 +167,7 @@ export default function TunkiAmigo() {
     event.preventDefault();
 
     if (!momentForm.description.trim()) {
-      setFormMessage("Cuentanos algo sobre tu momento Tunki.");
+      setFormMessage("Cuéntanos algo sobre tu momento Tunki.");
       return;
     }
 
@@ -211,7 +211,7 @@ export default function TunkiAmigo() {
     >
       <section className={styles.heroCommunity}>
         <div className={styles.heroCopy}>
-          <h1>"Nuestra comunidad! El alma de Tunki Coffee"</h1>
+          <h1>"¡Nuestra comunidad! El alma de Tunki Coffee"</h1>
           <button onClick={openMomentModal} type="button">
             Compartir Momento
           </button>
@@ -324,7 +324,7 @@ export default function TunkiAmigo() {
                     text: event.target.value,
                   }))
                 }
-                placeholder="Cuentanos que aroma, sabor o momento quieres compartir..."
+                placeholder="Cuéntanos qué aroma, sabor o momento quieres compartir..."
                 rows="5"
                 value={commentForm.text}
               />

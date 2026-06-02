@@ -50,7 +50,7 @@ export default function Login() {
       <div className={styles.card}>
         <div className={styles.cardHeader}>
           <span>{isRegistering ? "Comienza tu historia" : "Bienvenido de nuevo"}</span>
-          <h1>{isRegistering ? "Registrate" : "Iniciar sesion"}</h1>
+          <h1>{isRegistering ? "Regístrate" : "Iniciar sesión"}</h1>
         </div>
 
         {error && <div className={styles.errorMessage}>{error}</div>}
@@ -70,7 +70,7 @@ export default function Login() {
           )}
 
           <label className={styles.field}>
-            <span>Correo electronico</span>
+            <span>Correo electrónico</span>
             <input 
               type="email" 
               name="email" 
@@ -81,7 +81,7 @@ export default function Login() {
           </label>
 
           <label className={styles.field}>
-            <span>Contrasena</span>
+            <span>Contraseña</span>
             <input
               type="password"
               name="password"
@@ -97,17 +97,17 @@ export default function Login() {
                 <input type="checkbox" />
                 Recordarme
               </label>
-              <a href="/recuperar">Olvide mi contrasena</a>
+              <a href="/recuperar">Olvidé mi contraseña</a>
             </div>
           )}
 
           <button className={styles.primaryButton} type="submit" disabled={loading}>
-            {loading ? "Cargando..." : isRegistering ? "Crear cuenta" : "Iniciar sesion"}
+            {loading ? "Cargando..." : isRegistering ? "Crear cuenta" : "Iniciar sesión"}
           </button>
         </form>
 
         <div className={styles.divider}>
-          <span>{isRegistering ? "O registrate con" : "O continua con"}</span>
+          <span>{isRegistering ? "O regístrate con" : "O continúa con"}</span>
         </div>
 
         <div className={styles.socialButtons}>
@@ -123,9 +123,9 @@ export default function Login() {
         </div>
 
         <p className={styles.registerText}>
-          {isRegistering ? "Ya tienes una cuenta?" : "No tienes una cuenta?"}
+          {isRegistering ? "¿Ya tienes una cuenta?" : "¿No tienes una cuenta?"}
           <button type="button" onClick={() => setIsRegistering(!isRegistering)}>
-            {isRegistering ? "Inicia sesion" : "Registrate"}
+            {isRegistering ? "Inicia sesión" : "Regístrate"}
           </button>
         </p>
       </div>

@@ -22,7 +22,7 @@ import { downloadOrderPDF } from "../../services/pdf.js";
 
 const PRODUCT = {
   id: 1,
-  name: "Cafe en Grano Tunki",
+  name: "Café en Grano Tunki",
   type: "Americano",
   weight: "250 gr",
   price: 34.5,
@@ -317,10 +317,10 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
                   type="button"
                   onClick={() => setDeliveryType("agency")}
                   aria-pressed={deliveryType === "agency"}
-                  title="Envio por agencia"
+                  title="Envío por agencia"
                 >
                   <FaTruck />
-                  <span>Envio por agencia</span>
+                  <span>Envío por agencia</span>
                 </button>
               </div>
             </div>
@@ -328,8 +328,8 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
             <div className={styles.addressBlock}>
               <span>
                 {deliveryType === "pickup"
-                  ? "Direccion del local"
-                  : "Envio por agencia"}
+                  ? "Dirección del local"
+                  : "Envío por agencia"}
               </span>
               <p>
                 {deliveryType === "pickup"
@@ -373,7 +373,7 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
                 <strong>S/ {subtotal.toFixed(2)}</strong>
               </div>
               <div className={styles.pricingRow}>
-                <span>Envio</span>
+                <span>Envío</span>
                 <strong>S/ {shippingCost.toFixed(2)}</strong>
               </div>
               <div className={`${styles.pricingRow} ${styles.total}`}>
@@ -543,7 +543,7 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
                     <img
                       className={styles.qrBox}
                       src={qrImage}
-                      alt="Codigo QR de pago"
+                      alt="Código QR de pago"
                     />
                   </div>
                 )}
@@ -560,7 +560,7 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
                 />
                 {formErrors.buyerName && <span style={{ color: '#c00', fontSize: '0.85rem' }}>{formErrors.buyerName}</span>}
 
-                <label htmlFor="buyer-phone">Telefono de contacto</label>
+                <label htmlFor="buyer-phone">Teléfono de contacto</label>
                 <input 
                   id="buyer-phone" 
                   inputMode="tel" 

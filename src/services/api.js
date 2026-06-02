@@ -22,7 +22,7 @@ export async function createOrder(orderData) {
   const user = getSavedUser();
 
   if (!user) {
-    throw new Error("Por favor inicia sesion");
+    throw new Error("Por favor inicia sesión");
   }
 
   const newOrder = {
@@ -57,8 +57,8 @@ export async function verifyAuth() {
   const user = getSavedUser();
 
   if (!user) {
-    throw new Error("Sesion invalida");
+    throw new Error("Sesión inválida");
   }
 
-  return { user, message: "Sesion valida" };
+  return { user, message: "Sesión válida" };
 }

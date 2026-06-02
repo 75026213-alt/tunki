@@ -31,7 +31,7 @@ const recipeOptions = [
     image: bebidas,
     startPosition: { left: 50, top: 98 },
     description:
-      "Bebidas frias y cremosas con cafe para refrescar el dia sin perder intensidad.",
+      "Bebidas frías y cremosas con café para refrescar el día sin perder intensidad.",
   },
   {
     id: "postres",
@@ -39,7 +39,7 @@ const recipeOptions = [
     image: postres,
     startPosition: { left: 20, top: 86 },
     description:
-      "Postres suaves y dulces donde el cafe aparece como el detalle profundo.",
+      "Postres suaves y dulces donde el café aparece como el detalle profundo.",
   },
   {
     id: "salados",
@@ -94,9 +94,9 @@ const drinkRecipes = [
   },
   {
     id: "moca",
-    title: "Cafe Moca",
+    title: "Café Moca",
     image: bebida3,
-    imageAlt: "Cafe moca",
+    imageAlt: "Café moca",
     imageClass: styles.mocaDrinkImage,
     textClass: styles.mocaDrinkText,
     ingredients: [
@@ -408,12 +408,12 @@ export default function Recetas() {
         style={{ "--recetas-bg": `url(${recetasHero})` }}
       >
         <div className={styles.heroCopy}>
-          <h1>Que se te antoja hoy?</h1>
+          <h1>¿Qué se te antoja hoy?</h1>
           <p>
-            Desde refrescantes bebidas frias hasta deliciosos postres y
+            Desde refrescantes bebidas frías hasta deliciosos postres y
             preparaciones saladas, hemos recopilado algunas de nuestras mejores
-            recetas a base de cafe para que disfrutes su increible sabor en cada
-            momento del dia.
+            recetas a base de café para que disfrutes su increíble sabor en cada
+            momento del día.
           </p>
         </div>
       </section>

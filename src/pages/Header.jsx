@@ -41,7 +41,7 @@ export default function Header() {
       <nav className={navClass}>
         <NavLink to="/" end className={getLinkClass} onClick={handleNavigation}>Home</NavLink>
         <NavLink to="/origen" end className={getLinkClass} onClick={handleNavigation}>Origen</NavLink>
-        <NavLink to="/cafe" end className={getLinkClass} onClick={handleNavigation}>Cafe</NavLink>
+        <NavLink to="/cafe" end className={getLinkClass} onClick={handleNavigation}>Café</NavLink>
         <NavLink to="/recetas" end className={getLinkClass} onClick={handleNavigation}>Recetas</NavLink>
         <NavLink to="/tunki-amigo" end className={getLinkClass} onClick={handleNavigation}>Tunki Amigo</NavLink>
       </nav>

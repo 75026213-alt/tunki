@@ -12,9 +12,9 @@ import styles from "./Cafe.module.css";
 const americanoProducts = [
   {
     id: "americano-215",
-    name: "Cafe en Grano gourmet",
+    name: "Café en Grano gourmet",
     description:
-      "Edicion especial con notas cocoa, cereal dulce, base a nibs de cacao.",
+      "Edición especial con notas cocoa, cereal dulce, base a nibs de cacao.",
     weight: "215 gr",
     price: "S/ 22.00",
     priceValue: 22,
@@ -22,9 +22,9 @@ const americanoProducts = [
   },
   {
     id: "americano-250",
-    name: "Cafe en Grano",
+    name: "Café en Grano",
     description:
-      "Edicion especial con sabores frutales de naranja panela, base a chocolate, pasas.",
+      "Edición especial con sabores frutales de naranja panela, base a chocolate, pasas.",
     weight: "250 gr",
     price: "S/ 34.50",
     priceValue: 34.5,
@@ -32,8 +32,8 @@ const americanoProducts = [
   },
   {
     id: "americano-500",
-    name: "Cafe Tostado y Molido",
-    description: "Nuestro cafe insignia con notas de chocolate y caramelo.",
+    name: "Café Tostado y Molido",
+    description: "Nuestro café insignia con notas de chocolate y caramelo.",
     weight: "500 gr",
     price: "S/ 73.00",
     priceValue: 73,
@@ -41,7 +41,7 @@ const americanoProducts = [
   },
   {
     id: "americano-especial-250",
-    name: "Cafe Especial Tunki",
+    name: "Café Especial Tunki",
     description:
       "Perfil balanceado con aroma intenso y dulzor prolongado en taza.",
     weight: "250 gr",
@@ -51,7 +51,7 @@ const americanoProducts = [
   },
   {
     id: "americano-altura-250",
-    name: "Cafe de Altura",
+    name: "Café de Altura",
     description:
       "Granos seleccionados de altura con cuerpo medio y final limpio.",
     weight: "250 gr",
@@ -64,9 +64,9 @@ const americanoProducts = [
 const expressoProducts = [
   {
     id: "expresso-215",
-    name: "Cafe tostado y molido",
+    name: "Café tostado y molido",
     description:
-      "Edicion especial con notas a chocolate, frutos secos y caramelo.",
+      "Edición especial con notas a chocolate, frutos secos y caramelo.",
     weight: "215 gr",
     price: "S/ 40.00",
     priceValue: 40,
@@ -74,9 +74,9 @@ const expressoProducts = [
   },
   {
     id: "expresso-250",
-    name: "Cafe en Grano",
+    name: "Café en Grano",
     description:
-      "Edicion especial con notas cocoa, cereal dulce, base a nibs de cacao.",
+      "Edición especial con notas cocoa, cereal dulce, base a nibs de cacao.",
     weight: "250 gr",
     price: "S/ 29.50",
     priceValue: 29.5,
@@ -84,9 +84,9 @@ const expressoProducts = [
   },
   {
     id: "expresso-500",
-    name: "Cafe Tostado y Molido",
+    name: "Café Tostado y Molido",
     description:
-      "Edicion especial presenta notas de cocoa, cereal dulce y nibs de cacao.",
+      "Edición especial presenta notas de cocoa, cereal dulce y nibs de cacao.",
     weight: "500 gr",
     price: "S/ 50.00",
     priceValue: 50,

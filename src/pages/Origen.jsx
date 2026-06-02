@@ -170,8 +170,8 @@ const Origen = () => {
               <h3>El nacimiento</h3>
               <p>
                 Tunki Coffee nace en los valles de Tambopata e Inambari, en la
-                region de Puno, Peru. Cultivado entre los 1,300 y 1,800 msnm por
-                comunidades quechuas y aimaras, su produccion es organica y
+                region de Puno, Perú. Cultivado entre los 1,300 y 1,800 msnm por
+                comunidades quechuas y aimaras, su producción es orgánica y
                 tradicional, respetando los ciclos naturales de la tierra andina.
               </p>
             </div>
@@ -191,10 +191,10 @@ const Origen = () => {
             <div className={`${styles.storyText} ${styles.storyTextCentered}`}>
               <h3>El reconocimiento</h3>
               <p>
-                En el ano 2010, este cafe alcanzo reconocimiento internacional al
-                ser premiado como uno de los mejores cafes especiales del mundo
+                En el año 2010, este cafe alcanzo reconocimiento internacional al
+                ser premiado como uno de los mejores cafés especiales del mundo
                 por la Specialty Coffee Association of America. Este logro marco
-                un hito para el cafe peruano y posiciono a la region en el
+                un hito para el café peruano y posicionó a la región en el
                 escenario global.
               </p>
             </div>
@@ -205,12 +205,12 @@ const Origen = () => {
               <h3>El legado</h3>
               <p>
                 Desde entonces, Tunki Coffee se ha convertido en un simbolo del
-                cafe peruano de alta calidad.
+                café peruano de alta calidad.
               </p>
               <p>Cada taza representa:</p>
               <ul>
                 <li>Altura</li>
-                <li>Tradicion</li>
+                <li>Tradición</li>
                 <li>Comunidad</li>
                 <li>Excelencia</li>
               </ul>
@@ -241,7 +241,7 @@ const Origen = () => {
             ))}
           </div>
           <p className={styles.valuesQuote}>
-            "Reconocido entre los mejores cafes del mundo"
+            "Reconocido entre los mejores cafés del mundo"
           </p>
         </div>
       </section>

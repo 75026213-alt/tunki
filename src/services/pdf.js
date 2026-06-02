@@ -79,7 +79,7 @@ export function generateOrderPDF(order, user) {
   doc.setFontSize(9);
 
   order.items.forEach((item) => {
-    doc.text(item.name || 'Cafe en Grano Tunki', 20, yPosition);
+    doc.text(item.name || 'Café en Grano Tunki', 20, yPosition);
     doc.text(item.quantity.toString(), 125, yPosition);
     doc.text(`S/ ${item.price?.toFixed(2) || '34.50'}`, 165, yPosition);
     yPosition += 7;

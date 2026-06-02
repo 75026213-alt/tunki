@@ -12,6 +12,7 @@ import Recetas from "./pages/Recetas.jsx";
 import TunkiAmigo from "./pages/TunkiAmigo.jsx";
 import Origen from "./pages/Origen.jsx";
 import Agricultores from "./pages/Agricultores.jsx";
+import { Contacto, Privacidad, Terminos } from "./pages/InfoPages.jsx";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 
 function App() {
@@ -64,6 +65,9 @@ function App() {
             <Route path="/tunki-amigo" element={<TunkiAmigo />} />
             <Route path="/origen" element={<Origen />} />
             <Route path="/agricultores" element={<Agricultores />} />
+            <Route path="/contacto" element={<Contacto />} />
+            <Route path="/privacidad" element={<Privacidad />} />
+            <Route path="/terminos" element={<Terminos />} />
           </Routes>
         </main>
         {showFloatingCart && <FloatingCartBubble items={cartItems} />}
