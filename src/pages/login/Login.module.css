@@ -1,0 +1,251 @@
+.loginPage {
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  padding: 132px min(8vw, 92px) 72px;
+  background-image:
+    linear-gradient(90deg, rgba(246, 246, 242, 0.16) 0%, rgba(246, 246, 242, 0.02) 58%),
+    var(--login-bg);
+  background-position: center;
+  background-size: cover;
+  transition: justify-content 0.35s ease;
+}
+
+.registerMode {
+  justify-content: flex-end;
+}
+
+.card {
+  width: min(100%, 420px);
+  box-sizing: border-box;
+  padding: 38px 42px 34px;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 20px 0 rgba(70, 74, 61, 0.18), 0 28px 58px rgba(32, 42, 28, 0.16);
+  backdrop-filter: blur(14px) saturate(118%);
+  transition: transform 0.38s ease, box-shadow 0.38s ease;
+}
+
+.registerMode .card {
+  transform: translateX(-8px);
+}
+
+.cardHeader {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.cardHeader span {
+  color: #6f853a;
+  display: block;
+  font-family: var(--font-header);
+  font-size: 0.86rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.cardHeader h1 {
+  color: #375433;
+  font-family: var(--font-header);
+  font-size: 1.58rem;
+  line-height: 1;
+  margin: 0;
+}
+
+.form {
+  display: grid;
+  gap: 18px;
+}
+
+.field {
+  display: grid;
+  gap: 7px;
+}
+
+.field span {
+  color: #1f281c;
+  font-family: var(--font-header);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.field input {
+  width: 100%;
+  border: 0;
+  border-bottom: 1.5px solid #5f6655;
+  border-radius: 0;
+  box-sizing: border-box;
+  background: transparent;
+  background-color: transparent;
+  color: #1f281c;
+  font: inherit;
+  padding: 8px 2px 9px;
+  outline: none;
+  box-shadow: none;
+}
+
+.field input:focus {
+  border-bottom-color: #375433;
+}
+
+.field input:-webkit-autofill,
+.field input:-webkit-autofill:hover,
+.field input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #1f281c;
+  box-shadow: 0 0 0 1000px transparent inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+.formMeta {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: center;
+  color: #47503f;
+  font-size: 0.78rem;
+}
+
+.formMeta label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+}
+
+.formMeta input {
+  accent-color: #375433;
+}
+
+.formMeta a,
+.registerText button {
+  color: #375433;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.primaryButton {
+  border: 0;
+  border-radius: 8px;
+  background: #78933f;
+  color: #fffaf0;
+  cursor: pointer;
+  font-family: var(--font-header);
+  font-size: 0.88rem;
+  font-weight: 900;
+  padding: 13px 18px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.primaryButton:hover {
+  background: #375433;
+  transform: translateY(-1px);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #68715f;
+  font-size: 0.76rem;
+  margin: 24px 0 16px;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: rgba(55, 84, 51, 0.24);
+}
+
+.socialButtons {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+}
+
+.socialButtons button {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #26351f;
+  cursor: pointer;
+  display: grid;
+  font-size: 1.18rem;
+  padding: 0;
+  place-items: center;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.socialButtons button:hover {
+  color: #375433;
+  transform: translateY(-1px);
+}
+
+.registerText {
+  color: #47503f;
+  font-size: 0.82rem;
+  margin: 20px 0 0;
+  text-align: center;
+}
+
+.registerText button {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  margin-left: 5px;
+  padding: 0;
+}
+
+@media (max-width: 760px) {
+  .loginPage {
+    justify-content: center;
+    padding: 128px 20px 58px;
+    background-position: 62% center;
+  }
+
+  .registerMode {
+    justify-content: center;
+  }
+
+  .registerMode .card {
+    transform: none;
+  }
+
+  .card {
+    padding: 34px 26px 30px;
+  }
+}
+
+@media (max-width: 460px) {
+  .formMeta {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .socialButtons {
+    gap: 20px;
+  }
+}
+
+.errorMessage {
+  background-color: #fee;
+  border: 1px solid #fcc;
+  color: #c00;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.primaryButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+

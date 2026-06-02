@@ -1,0 +1,915 @@
+.recetas {
+  background: #24150f;
+  color: #fffaf0;
+  overflow: hidden;
+}
+
+:global(html.recetas-scroll-snap) {
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+}
+
+:global(html.recetas-scroll-snap.recetas-footer-free-scroll) {
+  scroll-snap-type: none;
+}
+
+.hero {
+  min-height: 100vh;
+  background-image: var(--recetas-bg);
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 120px clamp(32px, 8vw, 140px) 72px;
+  box-sizing: border-box;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  scroll-margin-top: 108px;
+}
+
+.heroCopy {
+  width: min(440px, 42vw);
+  margin-right: clamp(12px, 5vw, 80px);
+  text-align: center;
+}
+
+.heroCopy h1 {
+  color: #fffaf0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.5rem, 4.2vw, 4.4rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: 0;
+  margin: 0 0 28px;
+}
+
+.heroCopy p {
+  color: #fffaf0;
+  font-family: var(--font-header);
+  font-size: clamp(0.96rem, 1.08vw, 1.14rem);
+  font-weight: 400;
+  line-height: 1.04;
+  margin: 0 auto;
+  max-width: 390px;
+  text-align: justify;
+}
+
+.progressSection {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 76px 24px 108px;
+  background: #fff;
+  color: #421812;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  scroll-margin-top: 108px;
+}
+
+.dessertFeature {
+  width: min(920px, 100%);
+  display: grid;
+  justify-items: center;
+}
+
+.curvedText {
+  height: auto;
+  margin-bottom: -34px;
+  overflow: visible;
+  width: min(920px, calc(100vw - 20px));
+  z-index: 2;
+}
+
+.curvedText text {
+  fill: #421812;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.65rem, 3vw, 2.75rem);
+  font-weight: 500;
+}
+
+.dessertCircle {
+  width: min(400px, 72vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #421812;
+  position: relative;
+  box-shadow: 0 28px 70px rgba(66, 24, 18, 0.22);
+  overflow: visible;
+}
+
+.dessertCircle h2 {
+  color: #fffaf0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 5vw, 3.45rem);
+  font-weight: 600;
+  left: 50%;
+  line-height: 1;
+  margin: 0;
+  position: absolute;
+  text-align: center;
+  top: 17%;
+  transform: translateX(-50%);
+  width: 82%;
+}
+
+.recipeDescription {
+  animation: descriptionIn 0.36s ease both;
+  left: 50%;
+  position: absolute;
+  text-align: center;
+  top: 45%;
+  transform: translateX(-50%);
+  width: min(340px, 72%);
+  z-index: 4;
+}
+
+.recipeDescription h3 {
+  color: #f2b84b;
+  font-family: var(--font-header);
+  font-size: clamp(1rem, 2vw, 1.32rem);
+  font-weight: 900;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+
+.recipeDescription p {
+  color: rgba(255, 250, 240, 0.86);
+  font-size: clamp(0.78rem, 1.2vw, 0.94rem);
+  font-weight: 700;
+  line-height: 1.28;
+  margin: 0 auto;
+  max-width: 300px;
+}
+
+.recipeDescription button {
+  border: 0;
+  border-radius: 8px;
+  background: #173f34;
+  color: #fffaf0;
+  cursor: pointer;
+  font-family: var(--font-header);
+  font-size: 0.82rem;
+  font-weight: 900;
+  margin-top: 14px;
+  padding: 9px 26px;
+  text-transform: uppercase;
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.recipeDescription button:hover {
+  background: #1f5647;
+  box-shadow: 0 12px 28px rgba(23, 63, 52, 0.32);
+  transform: translateY(-2px);
+}
+
+.recipeOrbit {
+  inset: 0;
+  position: absolute;
+  z-index: 2;
+}
+
+.recipeOption {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: #fffaf0;
+  cursor: pointer;
+  display: grid;
+  height: clamp(144px, 18vw, 178px);
+  justify-items: center;
+  padding: 10px;
+  position: absolute;
+  left: var(--option-left);
+  top: var(--option-top);
+  transform: translate(-50%, -50%) scale(var(--option-scale));
+  transition: left 0.78s cubic-bezier(0.2, 0.85, 0.16, 1),
+    top 0.78s cubic-bezier(0.2, 0.85, 0.16, 1),
+    transform 0.78s cubic-bezier(0.2, 0.85, 0.16, 1);
+  width: clamp(144px, 18vw, 178px);
+}
+
+.recipeOption img {
+  display: block;
+  filter: drop-shadow(0 20px 28px rgba(0, 0, 0, 0.32));
+  height: 92%;
+  max-width: 118%;
+  object-fit: contain;
+  pointer-events: none;
+  transition: filter 0.22s ease, transform 0.22s ease;
+}
+
+.recipeOption:hover img,
+.selectedOption img {
+  filter: drop-shadow(0 26px 34px rgba(0, 0, 0, 0.42));
+  transform: scale(1.05);
+}
+
+.selectedOption {
+  z-index: 5;
+}
+
+.selectedOption img {
+  animation: chosenTurn 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+  filter: drop-shadow(0 28px 28px rgba(0, 0, 0, 0.36));
+  transform: scale(1.06);
+}
+
+.drinksWindowBackdrop {
+  align-items: flex-end;
+  background: transparent;
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  overscroll-behavior: contain;
+  padding: 104px clamp(12px, 3vw, 32px) 0;
+  position: fixed;
+  z-index: 80;
+}
+
+.drinksWindow {
+  animation: drinksWindowIn 0.5s cubic-bezier(0.2, 0.85, 0.16, 1) both;
+  background-image: linear-gradient(
+      115deg,
+      rgba(255, 250, 240, 0.1),
+      rgba(255, 250, 240, 0.22)
+    ),
+    var(--drinks-window-bg);
+  background-position: center;
+  background-size: cover;
+  border: 1px solid #375433;
+  border-radius: 40px 40px 0 0;
+  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.42);
+  height: min(86vh, 860px);
+  max-height: calc(100vh - 104px);
+  overflow: hidden;
+  position: relative;
+  width: min(980px, 94vw);
+}
+
+.drinksWindow::before {
+  background: rgba(255, 250, 240, 0.3);
+  backdrop-filter: blur(18px) saturate(1.2);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+.drinksWindow:focus {
+  outline: none;
+}
+
+.closeDrinksWindow {
+  align-items: center;
+  background: rgba(255, 250, 240, 0.92);
+  border: 0;
+  border-radius: 50%;
+  color: #421812;
+  cursor: pointer;
+  display: flex;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.22rem;
+  font-weight: 900;
+  height: 40px;
+  justify-content: center;
+  line-height: 1;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  transition: background 0.2s ease, transform 0.2s ease;
+  width: 40px;
+  z-index: 3;
+}
+
+.closeDrinksWindow:hover {
+  background: #f2b84b;
+  transform: scale(1.06);
+}
+
+.drinksRecipeSheet {
+  box-sizing: border-box;
+  color: #260c07;
+  height: 100%;
+  margin: 0 auto;
+  max-width: none;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 44px clamp(42px, 7vw, 86px) 96px;
+  position: relative;
+  scrollbar-width: none;
+  width: 100%;
+  z-index: 1;
+}
+
+.drinksRecipeSheet::-webkit-scrollbar {
+  display: none;
+}
+
+.drinkRecipeBlock {
+  min-height: 390px;
+  position: relative;
+  z-index: 1;
+}
+
+.drinkRecipeBlock + .drinkRecipeBlock {
+  margin-top: 62px;
+}
+
+.drinkRecipeImage {
+  display: block;
+  filter: drop-shadow(0 18px 22px rgba(66, 24, 18, 0.22));
+  object-fit: contain;
+  position: absolute;
+  z-index: 1;
+}
+
+.coldDrinkImage {
+  left: 0;
+  top: 34px;
+  width: 190px;
+}
+
+.frappeDrinkImage {
+  right: 0;
+  top: 30px;
+  width: 250px;
+}
+
+.mocaDrinkImage {
+  left: 0;
+  top: 16px;
+  width: 260px;
+}
+
+.drinkRecipeText {
+  color: #260c07;
+  font-family: var(--font-header);
+  position: absolute;
+  z-index: 2;
+}
+
+.coldDrinkText {
+  left: 230px;
+  top: 38px;
+  width: 390px;
+}
+
+.frappeDrinkText {
+  left: 170px;
+  top: 24px;
+  width: 300px;
+}
+
+.mocaDrinkText {
+  left: 330px;
+  top: 34px;
+  width: 360px;
+}
+
+.drinkRecipeText h2 {
+  color: #260c07;
+  font-size: 1.7rem;
+  font-weight: 900;
+  line-height: 1.05;
+  margin: 0 0 13px;
+}
+
+.drinkRecipeText h3 {
+  color: #260c07;
+  font-size: 0.76rem;
+  font-weight: 900;
+  line-height: 1;
+  margin: 18px 0 7px;
+}
+
+.drinkRecipeText ul,
+.drinkRecipeText ol {
+  color: #260c07;
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.42;
+  margin: 0;
+  padding-left: 18px;
+}
+
+.drinkRecipeText li + li {
+  margin-top: 2px;
+}
+
+.beansDecor,
+.spoonDecor,
+.groundCoffeeDecor {
+  filter: drop-shadow(0 18px 22px rgba(66, 24, 18, 0.24));
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.beansDecor {
+  right: -4px;
+  top: 298px;
+  width: 230px;
+}
+
+.spoonDecor {
+  left: -34px;
+  top: 585px;
+  transform: rotate(23deg);
+  width: 240px;
+}
+
+.groundCoffeeDecor {
+  bottom: auto;
+  right: -28px;
+  top: 1230px;
+  transform: rotate(-18deg);
+  width: 245px;
+}
+
+.dessertRecipeSheet {
+  padding-top: 56px;
+}
+
+.dessertRecipeSheet .drinkRecipeBlock {
+  min-height: 365px;
+}
+
+.dessertRecipeSheet .drinkRecipeBlock + .drinkRecipeBlock {
+  margin-top: 40px;
+}
+
+.dessertRecipeSheet .beansDecor {
+  right: -62px;
+  top: 312px;
+  width: 245px;
+}
+
+.dessertRecipeSheet .spoonDecor {
+  left: -58px;
+  top: 768px;
+  transform: rotate(15deg);
+  width: 230px;
+}
+
+.dessertRecipeSheet .groundCoffeeDecor {
+  right: -44px;
+  top: 1168px;
+  transform: rotate(-22deg);
+  width: 245px;
+}
+
+.brownieDessertImage {
+  left: -6px;
+  top: 22px;
+  width: 278px;
+}
+
+.brownieDessertText {
+  left: 330px;
+  top: 4px;
+  width: 430px;
+}
+
+.flanDessertImage {
+  right: 28px;
+  top: 54px;
+  width: 410px;
+}
+
+.flanDessertText {
+  left: 12px;
+  top: 48px;
+  width: 360px;
+}
+
+.cheesecakeDessertImage {
+  left: -8px;
+  top: 58px;
+  width: 330px;
+}
+
+.cheesecakeDessertText {
+  left: 340px;
+  top: 56px;
+  width: 450px;
+}
+
+.savoryRecipeSheet {
+  padding-top: 58px;
+}
+
+.savoryRecipeSheet .drinkRecipeBlock {
+  min-height: 370px;
+}
+
+.savoryRecipeSheet .drinkRecipeBlock + .drinkRecipeBlock {
+  margin-top: 34px;
+}
+
+.steakSavoryImage {
+  left: -24px;
+  top: 82px;
+  width: 360px;
+}
+
+.steakSavoryText {
+  left: 372px;
+  top: 18px;
+  width: 455px;
+}
+
+.sauceSavoryImage {
+  right: 6px;
+  top: 18px;
+  width: 455px;
+}
+
+.sauceSavoryText {
+  left: 20px;
+  top: 44px;
+  width: 325px;
+}
+
+.chickenSavoryImage {
+  left: -26px;
+  top: 82px;
+  width: 430px;
+}
+
+.chickenSavoryText {
+  left: 418px;
+  top: 42px;
+  width: 405px;
+}
+
+.savoryBeansDecor,
+.honeyDecor,
+.savorySauceDecor {
+  filter: drop-shadow(0 18px 22px rgba(66, 24, 18, 0.24));
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.savoryBeansDecor {
+  right: -72px;
+  top: 300px;
+  width: 245px;
+}
+
+.honeyDecor {
+  left: -174px;
+  top: 842px;
+  transform: rotate(-2deg);
+  width: 315px;
+}
+
+.savorySauceDecor {
+  display: none;
+}
+
+@keyframes chosenTurn {
+  0% {
+    transform: rotate(-18deg) scale(0.82);
+  }
+
+  58% {
+    transform: rotate(8deg) scale(1.1);
+  }
+
+  100% {
+    transform: rotate(0deg) scale(1.06);
+  }
+}
+
+@keyframes descriptionIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes drinksWindowIn {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .recipeDescription {
+    animation: none;
+  }
+
+  .selectedOption img {
+    animation: none;
+  }
+
+  .drinksWindow {
+    animation: none;
+  }
+
+  .recipeOption,
+  .recipeOption:hover,
+  .selectedOption {
+    transition: none;
+  }
+}
+
+@media (max-width: 900px) {
+  :global(html.recetas-scroll-snap) {
+    scroll-snap-type: y proximity;
+  }
+
+  .hero {
+    min-height: 100svh;
+    align-items: flex-end;
+    justify-content: center;
+    background-position: center;
+    background-size: cover;
+    padding: 128px 24px 58px;
+  }
+
+  .heroCopy {
+    width: min(100%, 520px);
+    margin-right: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    backdrop-filter: none;
+    text-shadow: 0 3px 16px rgba(0, 0, 0, 0.52);
+  }
+
+  .curvedText {
+    width: min(980px, calc(100vw + 90px));
+  }
+
+  .curvedText text {
+    font-size: clamp(2.1rem, 5.8vw, 3rem);
+  }
+
+  .drinksWindowBackdrop {
+    padding: 148px 14px 0;
+  }
+
+  .drinksWindow {
+    height: calc(100vh - 148px);
+    max-height: calc(100vh - 148px);
+  }
+
+  .drinksRecipeSheet {
+    height: 100%;
+    margin: 0 auto;
+    padding: 38px 24px 78px;
+    width: 100%;
+  }
+
+  .drinkRecipeBlock,
+  .drinkRecipeBlock + .drinkRecipeBlock {
+    display: grid;
+    gap: 18px;
+    margin-top: 44px;
+    min-height: 0;
+  }
+
+  .drinkRecipeBlock:first-of-type {
+    margin-top: 0;
+  }
+
+  .drinkRecipeImage,
+  .drinkRecipeText {
+    position: relative;
+  }
+
+  .drinkRecipeImage {
+    left: auto;
+    margin: 0 auto;
+    right: auto;
+    top: auto;
+  }
+
+  .coldDrinkImage {
+    width: 150px;
+  }
+
+  .frappeDrinkImage,
+  .mocaDrinkImage {
+    width: min(230px, 74vw);
+  }
+
+  .drinkRecipeText,
+  .coldDrinkText,
+  .frappeDrinkText,
+  .mocaDrinkText {
+    left: auto;
+    top: auto;
+    width: 100%;
+  }
+
+  .beansDecor {
+    opacity: 0.55;
+    right: -70px;
+    top: 370px;
+  }
+
+  .spoonDecor {
+    left: -82px;
+    opacity: 0.5;
+    top: 740px;
+  }
+
+  .groundCoffeeDecor {
+    opacity: 0.6;
+    right: -86px;
+    top: 1680px;
+  }
+
+  .dessertRecipeSheet {
+    padding-top: 48px;
+  }
+
+  .dessertRecipeSheet .drinkRecipeBlock,
+  .dessertRecipeSheet .drinkRecipeBlock + .drinkRecipeBlock {
+    margin-top: 44px;
+    min-height: 0;
+  }
+
+  .dessertRecipeSheet .drinkRecipeBlock:first-of-type {
+    margin-top: 0;
+  }
+
+  .dessertRecipeSheet .beansDecor {
+    opacity: 0.55;
+    right: -86px;
+    top: 380px;
+    width: 210px;
+  }
+
+  .dessertRecipeSheet .spoonDecor {
+    left: -64px;
+    opacity: 0.5;
+    top: 760px;
+    width: 190px;
+  }
+
+  .dessertRecipeSheet .groundCoffeeDecor {
+    opacity: 0.6;
+    right: -52px;
+    top: 1420px;
+    width: 205px;
+  }
+
+  .brownieDessertImage,
+  .flanDessertImage,
+  .cheesecakeDessertImage {
+    width: min(310px, 78vw);
+  }
+
+  .brownieDessertText,
+  .flanDessertText,
+  .cheesecakeDessertText {
+    left: auto;
+    top: auto;
+    width: 100%;
+  }
+
+  .savoryRecipeSheet {
+    padding-top: 48px;
+  }
+
+  .savoryRecipeSheet .drinkRecipeBlock,
+  .savoryRecipeSheet .drinkRecipeBlock + .drinkRecipeBlock {
+    margin-top: 44px;
+    min-height: 0;
+  }
+
+  .savoryRecipeSheet .drinkRecipeBlock:first-of-type {
+    margin-top: 0;
+  }
+
+  .steakSavoryImage,
+  .sauceSavoryImage,
+  .chickenSavoryImage {
+    width: min(310px, 78vw);
+  }
+
+  .steakSavoryText,
+  .sauceSavoryText,
+  .chickenSavoryText {
+    left: auto;
+    top: auto;
+    width: 100%;
+  }
+
+  .savoryBeansDecor {
+    opacity: 0.55;
+    right: -86px;
+    top: 420px;
+    width: 210px;
+  }
+
+  .honeyDecor {
+    left: -92px;
+    opacity: 0.52;
+    top: 1000px;
+    width: 190px;
+  }
+
+  .savorySauceDecor {
+    opacity: 0.48;
+    right: -62px;
+    top: 760px;
+    width: 230px;
+  }
+
+}
+
+@media (max-width: 560px) {
+  .hero {
+    min-height: 100svh;
+    background-position: center;
+    background-size: cover;
+    padding: 126px 18px 42px;
+  }
+
+  .heroCopy {
+    padding: 0 4px;
+  }
+
+  .heroCopy p {
+    text-align: left;
+  }
+
+  .progressSection {
+    min-height: 66vh;
+    padding: 96px 18px 72px;
+    overflow: hidden;
+  }
+
+  .dessertCircle {
+    width: min(320px, 78vw);
+  }
+
+  .curvedText {
+    margin-bottom: -6px;
+    width: min(520px, calc(100vw - 12px));
+  }
+
+  .curvedText text {
+    font-size: clamp(2rem, 8vw, 2.55rem);
+  }
+
+  .dessertCircle h2 {
+    top: 10%;
+  }
+
+  .recipeDescription {
+    top: 44%;
+  }
+
+  .recipeDescription p {
+    font-size: 0.74rem;
+  }
+
+  .recipeOption {
+    height: clamp(112px, 31vw, 132px);
+    width: clamp(112px, 31vw, 132px);
+  }
+
+  .drinksWindowBackdrop {
+    padding: 138px 10px 0;
+  }
+
+  .drinksWindow {
+    height: calc(100vh - 138px);
+    max-height: calc(100vh - 138px);
+    width: 100%;
+  }
+
+  .closeDrinksWindow {
+    height: 36px;
+    right: 14px;
+    top: 14px;
+    width: 36px;
+  }
+
+  .drinksRecipeSheet {
+    height: 100%;
+    margin: 0 auto;
+    padding: 40px 18px 72px;
+    width: 100%;
+  }
+
+}

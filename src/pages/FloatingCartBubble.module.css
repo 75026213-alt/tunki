@@ -1,0 +1,212 @@
+.cartDock {
+  align-items: flex-end;
+  bottom: 28px;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 14px;
+  position: fixed;
+  right: 28px;
+  z-index: 120;
+}
+
+.cartBubble {
+  background: rgba(244, 239, 226, 0.08);
+  backdrop-filter: blur(12px) saturate(120%);
+  border: 1px solid #375433;
+  border-radius: 50%;
+  box-shadow: 0 18px 48px rgba(18, 31, 17, 0.24);
+  color: #b2aa7b;
+  cursor: pointer;
+  display: grid;
+  font-size: 1.28rem;
+  height: 62px;
+  place-items: center;
+  position: relative;
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  width: 62px;
+  z-index: 2;
+}
+
+.cartBubble:hover {
+  background: rgba(55, 84, 51, 0.26);
+  box-shadow: 0 22px 56px rgba(18, 31, 17, 0.32);
+  transform: translateY(-3px);
+}
+
+.cartBubble span {
+  background: #3a160f;
+  border: 2px solid rgba(244, 239, 226, 0.8);
+  border-radius: 999px;
+  color: #fff8ed;
+  display: grid;
+  font-family: var(--font-header);
+  font-size: 0.72rem;
+  font-weight: 800;
+  height: 22px;
+  place-items: center;
+  position: absolute;
+  right: -4px;
+  top: -4px;
+  width: 22px;
+}
+
+.cartSummary {
+  animation: riseFromBubble 0.24s ease both;
+  background: rgba(244, 239, 226, 0.08);
+  backdrop-filter: blur(12px) saturate(120%);
+  border: 1px solid #375433;
+  border-radius: 22px;
+  box-shadow: 0 22px 56px rgba(18, 31, 17, 0.32);
+  box-sizing: border-box;
+  color: #fff8ed;
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+  transform-origin: calc(100% - 31px) calc(100% + 45px);
+  width: min(330px, calc(100vw - 32px));
+  z-index: 1;
+}
+
+.summaryHeader {
+  display: grid;
+  gap: 2px;
+}
+
+.summaryHeader span {
+  color: #b2aa7b;
+  font-family: var(--font-header);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.summaryHeader strong {
+  color: #fff8ed;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.45rem;
+  line-height: 1;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.42);
+}
+
+.emptyText {
+  color: rgba(255, 248, 237, 0.82);
+  font-family: var(--font-header);
+  font-size: 0.86rem;
+  margin: 0;
+}
+
+.itemList {
+  display: grid;
+  gap: 10px;
+}
+
+.summaryItem {
+  align-items: start;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.summaryItem span,
+.summaryItem strong,
+.summaryTotal span,
+.summaryTotal strong {
+  color: #fff8ed;
+  font-family: var(--font-header);
+  font-size: 0.82rem;
+  line-height: 1.16;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.36);
+}
+
+.summaryItem span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.summaryItem strong {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.summaryTotal {
+  align-items: center;
+  border-top: 1px solid rgba(255, 248, 237, 0.2);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  padding-top: 14px;
+}
+
+.summaryTotal span {
+  font-weight: 700;
+}
+
+.summaryTotal strong {
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.goToCartButton {
+  background: rgba(15, 90, 58, 0.72);
+  backdrop-filter: blur(12px) saturate(120%);
+  border: 1px solid rgba(255, 248, 237, 0.24);
+  border-radius: 8px;
+  box-shadow: 0 12px 28px rgba(2, 17, 10, 0.32);
+  color: #fff8ed;
+  display: block;
+  font-family: var(--font-header);
+  font-size: 0.9rem;
+  font-weight: 600;
+  overflow: hidden;
+  padding: 13px 20px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.goToCartButton::after {
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(255, 248, 237, 0.34) 45%,
+    transparent 72%
+  );
+  content: "";
+  inset: 0;
+  position: absolute;
+  transform: translateX(-120%);
+  transition: transform 0.45s ease;
+}
+
+.goToCartButton:hover,
+.goToCartButton:focus-visible {
+  background: rgba(23, 111, 75, 0.84);
+  box-shadow: 0 18px 36px rgba(2, 17, 10, 0.44);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.goToCartButton:hover::after,
+.goToCartButton:focus-visible::after {
+  transform: translateX(120%);
+}
+
+@media (max-width: 620px) {
+  .cartDock {
+    bottom: 18px;
+    right: 16px;
+  }
+}
+
+@keyframes riseFromBubble {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.9);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
