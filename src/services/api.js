@@ -1,47 +1,64 @@
-const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/$/, '');
+const ORDERS_STORAGE_PREFIX = "tunkiOrders:";
 
-export async function createOrder(orderData, token) {
-  const response = await fetch(`${API_URL}/orders/create`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-    },
-    body: JSON.stringify(orderData),
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.error || 'Error al crear orden');
-  }
-
-  return response.json();
+function getSavedUser() {
+  const savedUser = localStorage.getItem("authUser");
+  return savedUser ? JSON.parse(savedUser) : null;
 }
 
-export async function getMyOrders(token) {
-  const response = await fetch(`${API_URL}/orders/my-orders`, {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error('Error al obtener órdenes');
-  }
-
-  return response.json();
+function getOrdersKey(userId) {
+  return `${ORDERS_STORAGE_PREFIX}${userId}`;
 }
 
-export async function verifyAuth(token) {
-  const response = await fetch(`${API_URL}/auth/verify`, {
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
-  });
+function readOrders(userId) {
+  const savedOrders = localStorage.getItem(getOrdersKey(userId));
+  return savedOrders ? JSON.parse(savedOrders) : [];
+}
 
-  if (!response.ok) {
-    throw new Error('Token inválido');
+function writeOrders(userId, orders) {
+  localStorage.setItem(getOrdersKey(userId), JSON.stringify(orders));
+}
+
+export async function createOrder(orderData) {
+  const user = getSavedUser();
+
+  if (!user) {
+    throw new Error("Por favor inicia sesion");
   }
 
-  return response.json();
+  const newOrder = {
+    id: `ORD-${Date.now()}`,
+    userId: user.id,
+    userEmail: user.email,
+    ...orderData,
+    status: "completada",
+    createdAt: new Date().toISOString(),
+  };
+
+  const currentOrders = readOrders(user.id);
+  writeOrders(user.id, [newOrder, ...currentOrders]);
+
+  return {
+    message: "Orden creada exitosamente",
+    order: newOrder,
+  };
+}
+
+export async function getMyOrders() {
+  const user = getSavedUser();
+
+  if (!user) {
+    return { orders: [] };
+  }
+
+  return { orders: readOrders(user.id) };
+}
+
+export async function verifyAuth() {
+  const user = getSavedUser();
+
+  if (!user) {
+    throw new Error("Sesion invalida");
+  }
+
+  return { user, message: "Sesion valida" };
 }

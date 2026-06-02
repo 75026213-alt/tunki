@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   FaEnvelope,
@@ -23,24 +23,14 @@ export default function Profile() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [activeSection, setActiveSection] = useState("info");
-  const [orders] = useState([
-    {
-      id: "ORD-1717225200000",
-      date: "2026-06-01",
-      total: 42.5,
-      status: "completada",
-      items: "Cafe en Grano Tunki",
-      delivery: "pickup",
-    },
-    {
-      id: "ORD-1717225100000",
-      date: "2026-05-31",
-      total: 50.5,
-      status: "pendiente",
-      items: "Cafe Molido",
-      delivery: "agency",
-    },
-  ]);
+  const orders = useMemo(() => {
+    if (!user) {
+      return [];
+    }
+
+    const savedOrders = localStorage.getItem(`tunkiOrders:${user.id}`);
+    return savedOrders ? JSON.parse(savedOrders) : [];
+  }, [user]);
 
   const handleLogout = () => {
     logout();
@@ -168,15 +158,18 @@ export default function Profile() {
                         </div>
                         <div className={styles.orderDetails}>
                           <p>
-                            <strong>Productos:</strong> {order.items}
+                            <strong>Productos:</strong>{" "}
+                            {Array.isArray(order.items)
+                              ? order.items.map((item) => item.name).join(", ")
+                              : order.items}
                           </p>
                           <p>
                             <strong>Fecha:</strong>{" "}
-                            {new Date(order.date).toLocaleDateString("es-ES")}
+                            {new Date(order.createdAt || order.date).toLocaleDateString("es-ES")}
                           </p>
                           <p>
                             <strong>Entrega:</strong>{" "}
-                            {order.delivery === "pickup" ? "Recojo en tienda" : "Agencia"}
+                            {(order.deliveryType || order.delivery) === "pickup" ? "Recojo en tienda" : "Agencia"}
                           </p>
                         </div>
                       </div>

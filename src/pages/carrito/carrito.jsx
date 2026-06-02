@@ -47,7 +47,7 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
     buyerName: "",
     buyerPhone: "",
   });
-  const { isAuthenticated, user, token } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const cartItemsRef = useRef(null);
 
   const shippingCost = deliveryType === "agency" ? 8 : 0;
@@ -173,7 +173,7 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
     setPaymentLoading(true);
 
     try {
-      if (!token) {
+      if (!isAuthenticated) {
         setPaymentError("Por favor inicia sesión");
         return;
       }
@@ -192,7 +192,7 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
         paymentMethod,
       };
 
-      const result = await createOrder(orderData, token);
+      const result = await createOrder(orderData);
       setPaymentSuccess(true);
       
       setTimeout(() => {

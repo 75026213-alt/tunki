@@ -1,56 +1,72 @@
-import { createContext, useState, useCallback, useEffect } from 'react';
+import { createContext, useCallback, useState } from 'react';
 
 export const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
-  const [loading, setLoading] = useState(true);
+function createDemoToken(email) {
+  return `demo-token-${email}-${Date.now()}`;
+}
 
-  useEffect(() => {
-    const savedToken = localStorage.getItem('authToken');
-    const savedUser = localStorage.getItem('authUser');
-    
-    if (savedToken && savedUser) {
-      setToken(savedToken);
-      setUser(JSON.parse(savedUser));
-    }
-    setLoading(false);
+function createDemoUser(email, username) {
+  return {
+    id: email.trim().toLowerCase(),
+    email: email.trim().toLowerCase(),
+    username: username?.trim() || email.split('@')[0],
+  };
+}
+
+function getInitialAuth() {
+  const savedToken = localStorage.getItem('authToken');
+  const savedUser = localStorage.getItem('authUser');
+
+  if (!savedToken || !savedUser) {
+    return { token: null, user: null };
+  }
+
+  try {
+    return { token: savedToken, user: JSON.parse(savedUser) };
+  } catch {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('authUser');
+    return { token: null, user: null };
+  }
+}
+
+export function AuthProvider({ children }) {
+  const initialAuth = getInitialAuth();
+  const [user, setUser] = useState(initialAuth.user);
+  const [token, setToken] = useState(initialAuth.token);
+  const loading = false;
+
+  const saveSession = useCallback((nextUser) => {
+    const nextToken = createDemoToken(nextUser.email);
+
+    setToken(nextToken);
+    setUser(nextUser);
+    localStorage.setItem('authToken', nextToken);
+    localStorage.setItem('authUser', JSON.stringify(nextUser));
+
+    return {
+      message: 'Sesion iniciada',
+      token: nextToken,
+      user: nextUser,
+    };
   }, []);
 
   const login = useCallback(async (email, password) => {
-    const response = await fetch('http://localhost:5000/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
+    if (!email || !password) {
+      throw new Error('Email y contrasena requeridos');
+    }
 
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || 'Error');
-
-    setToken(data.token);
-    setUser(data.user);
-    localStorage.setItem('authToken', data.token);
-    localStorage.setItem('authUser', JSON.stringify(data.user));
-    return data;
-  }, []);
+    return saveSession(createDemoUser(email));
+  }, [saveSession]);
 
   const register = useCallback(async (email, username, password) => {
-    const response = await fetch('http://localhost:5000/api/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, username, password }),
-    });
+    if (!email || !username || !password) {
+      throw new Error('Todos los campos son requeridos');
+    }
 
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || 'Error');
-
-    setToken(data.token);
-    setUser(data.user);
-    localStorage.setItem('authToken', data.token);
-    localStorage.setItem('authUser', JSON.stringify(data.user));
-    return data;
-  }, []);
+    return saveSession(createDemoUser(email, username));
+  }, [saveSession]);
 
   const logout = useCallback(() => {
     setUser(null);
