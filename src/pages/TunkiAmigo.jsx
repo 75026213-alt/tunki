@@ -1,4 +1,5 @@
 import { useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./TunkiAmigo.module.css";
 import fondo2 from "../assets/tunki-amigo/fondo2.jpg";
 import fondo3 from "../assets/tunki-amigo/fondo3.jpg";
@@ -263,6 +264,9 @@ export default function TunkiAmigo() {
           "!Tu pasión tiene premio! Comparte tu foto y recibe un beneficio
           exclusivo".
         </p>
+        <Link className={styles.rewardButton} to="/premios-tunki">
+          Ver premios
+        </Link>
         <h2>Comentarios</h2>
 
         <div className={styles.commentGrid}>

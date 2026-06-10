@@ -170,7 +170,7 @@ const Origen = () => {
               <h3>El nacimiento</h3>
               <p>
                 Tunki Coffee nace en los valles de Tambopata e Inambari, en la
-                region de Puno, Perú. Cultivado entre los 1,300 y 1,800 msnm por
+                región de Puno, Perú. Cultivado entre los 1,300 y 1,800 msnm por
                 comunidades quechuas y aimaras, su producción es orgánica y
                 tradicional, respetando los ciclos naturales de la tierra andina.
               </p>
@@ -191,9 +191,9 @@ const Origen = () => {
             <div className={`${styles.storyText} ${styles.storyTextCentered}`}>
               <h3>El reconocimiento</h3>
               <p>
-                En el año 2010, este cafe alcanzo reconocimiento internacional al
+                En el año 2010, este café alcanzó reconocimiento internacional al
                 ser premiado como uno de los mejores cafés especiales del mundo
-                por la Specialty Coffee Association of America. Este logro marco
+                por la Specialty Coffee Association of America. Este logro marcó
                 un hito para el café peruano y posicionó a la región en el
                 escenario global.
               </p>
@@ -204,7 +204,7 @@ const Origen = () => {
             <div className={styles.storyText}>
               <h3>El legado</h3>
               <p>
-                Desde entonces, Tunki Coffee se ha convertido en un simbolo del
+                Desde entonces, Tunki Coffee se ha convertido en un símbolo del
                 café peruano de alta calidad.
               </p>
               <p>Cada taza representa:</p>

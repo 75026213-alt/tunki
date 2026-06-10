@@ -105,7 +105,7 @@ const expressoProducts = [
   {
     id: "expresso-reserva-250",
     name: "Expresso Reserva",
-    description: "Blend aromatico para taza corta con notas dulces y tostadas.",
+    description: "Blend aromático para taza corta con notas dulces y tostadas.",
     weight: "250 gr",
     price: "S/ 42.00",
     priceValue: 42,
@@ -195,7 +195,7 @@ function MobileProductShowcase({ onAddToCart }) {
 
   return (
     <section className={styles.mobileProductsShowcase}>
-      <aside className={styles.mobileCategoryRail} aria-label="Categorias de cafe">
+      <aside className={styles.mobileCategoryRail} aria-label="Categorías de café">
         {categories.map((category) => (
           <button
             className={category.id === activeCategory ? styles.activeCategory : ""}
@@ -323,13 +323,13 @@ export default function Cafe({ onAddToCart }) {
         <img
           className={styles.heroBean}
           src={cafeHero}
-          alt="Grano de cafe Tunki"
+          alt="Grano de café Tunki"
         />
 
         <article className={`${styles.heroText} ${styles.processText}`}>
           <h2>Proceso Artesanal</h2>
           <p>
-            Utilizamos metodos tradicionales combinados con técnicas modernas
+            Utilizamos métodos tradicionales combinados con técnicas modernas
             para preservar la esencia del café. El secado, la selección y el
             tostado se trabajan con precisión para cuidar cada matriz.
           </p>

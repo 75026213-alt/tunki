@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Header from "./pages/Header.jsx";
 import Footer from "./pages/Footer.jsx";
+import FloatingWhatsApp from "./pages/FloatingWhatsApp.jsx";
 import Home from "./pages/Home.jsx";
 import Cafe from "./pages/Cafe.jsx";
 import Login from "./pages/login/Login.jsx";
@@ -10,8 +11,10 @@ import Carrito from "./pages/carrito/carrito.jsx";
 import FloatingCartBubble from "./pages/FloatingCartBubble.jsx";
 import Recetas from "./pages/Recetas.jsx";
 import TunkiAmigo from "./pages/TunkiAmigo.jsx";
+import PremiosTunki from "./pages/PremiosTunki.jsx";
 import Origen from "./pages/Origen.jsx";
 import Agricultores from "./pages/Agricultores.jsx";
+import Mayoristas from "./pages/Mayoristas.jsx";
 import { Contacto, Privacidad, Terminos } from "./pages/InfoPages.jsx";
 import { AuthProvider } from "./contexts/AuthContext.jsx";
 
@@ -63,14 +66,17 @@ function App() {
             <Route path="/carrito" element={<Carrito cartItems={cartItems} setCartItems={setCartItems} />} />
             <Route path="/recetas" element={<Recetas />} />
             <Route path="/tunki-amigo" element={<TunkiAmigo />} />
+            <Route path="/premios-tunki" element={<PremiosTunki />} />
             <Route path="/origen" element={<Origen />} />
             <Route path="/agricultores" element={<Agricultores />} />
+            <Route path="/ventas-mayoristas" element={<Mayoristas />} />
             <Route path="/contacto" element={<Contacto />} />
             <Route path="/privacidad" element={<Privacidad />} />
             <Route path="/terminos" element={<Terminos />} />
           </Routes>
         </main>
         {showFloatingCart && <FloatingCartBubble items={cartItems} />}
+        <FloatingWhatsApp />
         <Footer />
       </>
     </AuthProvider>

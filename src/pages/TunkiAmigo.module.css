@@ -125,6 +125,52 @@
   transform: translateY(-2px) scale(1.02);
 }
 
+.rewardButton {
+  background: rgba(255, 248, 237, 0.14);
+  backdrop-filter: blur(12px) saturate(120%);
+  border: 1px solid rgba(255, 248, 237, 0.32);
+  border-radius: 8px;
+  box-shadow: 0 12px 28px rgba(2, 17, 10, 0.24);
+  color: #fff8ed;
+  display: inline-flex;
+  font-family: var(--font-header);
+  font-size: 0.9rem;
+  font-weight: 700;
+  justify-content: center;
+  margin-top: 22px;
+  overflow: hidden;
+  padding: 12px 24px;
+  position: relative;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rewardButton::after {
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(255, 248, 237, 0.34) 45%,
+    transparent 72%
+  );
+  content: "";
+  inset: 0;
+  position: absolute;
+  transform: translateX(-120%);
+  transition: transform 0.45s ease;
+}
+
+.rewardButton:hover,
+.rewardButton:focus-visible {
+  background: rgba(23, 111, 75, 0.82);
+  box-shadow: 0 16px 32px rgba(2, 17, 10, 0.36);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.rewardButton:hover::after,
+.rewardButton:focus-visible::after {
+  transform: translateX(120%);
+}
+
 .memberCarousel {
   box-sizing: border-box;
   display: block;

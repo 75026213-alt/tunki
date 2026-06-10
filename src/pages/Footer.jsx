@@ -34,6 +34,7 @@ export default function Footer() {
             <a href="/">Inicio</a>
             <a href="/recetas">Nuestro Café</a>
             <a href="/tunki-amigo">Origen</a>
+            <a href="/ventas-mayoristas">Ventas al por mayor</a>
           </div>
 
           <div>

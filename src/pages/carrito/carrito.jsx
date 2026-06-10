@@ -3,7 +3,6 @@ import {
   FaMinus,
   FaPlus,
   FaShoppingCart,
-  FaStore,
   FaTimes,
   FaTruck,
 } from "react-icons/fa";
@@ -18,6 +17,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth.js";
 import { createOrder } from "../../services/api.js";
 import { downloadOrderPDF } from "../../services/pdf.js";
+import { calculatePointsForOrder } from "../../services/rewards.js";
 
 const PRODUCT = {
   id: 1,
@@ -28,31 +28,204 @@ const PRODUCT = {
   image: productImage,
 };
 
+const peruRegions = [
+  {
+    id: "lima",
+    name: "Lima",
+    cities: [
+      { id: "lima", name: "Lima" },
+      { id: "huacho", name: "Huacho" },
+      { id: "canete", name: "Cañete" },
+    ],
+  },
+  {
+    id: "arequipa",
+    name: "Arequipa",
+    cities: [
+      { id: "arequipa", name: "Arequipa" },
+      { id: "camana", name: "Camaná" },
+    ],
+  },
+  {
+    id: "cusco",
+    name: "Cusco",
+    cities: [
+      { id: "cusco", name: "Cusco" },
+      { id: "sicuani", name: "Sicuani" },
+    ],
+  },
+  {
+    id: "puno",
+    name: "Puno",
+    cities: [
+      { id: "puno", name: "Puno" },
+      { id: "juliaca", name: "Juliaca" },
+      { id: "ilave", name: "Ilave" },
+    ],
+  },
+  {
+    id: "la-libertad",
+    name: "La Libertad",
+    cities: [
+      { id: "trujillo", name: "Trujillo" },
+      { id: "chepen", name: "Chepén" },
+    ],
+  },
+  {
+    id: "lambayeque",
+    name: "Lambayeque",
+    cities: [
+      { id: "chiclayo", name: "Chiclayo" },
+      { id: "lambayeque", name: "Lambayeque" },
+    ],
+  },
+  {
+    id: "piura",
+    name: "Piura",
+    cities: [
+      { id: "piura", name: "Piura" },
+      { id: "sullana", name: "Sullana" },
+    ],
+  },
+  {
+    id: "junin",
+    name: "Junín",
+    cities: [
+      { id: "huancayo", name: "Huancayo" },
+      { id: "tarma", name: "Tarma" },
+    ],
+  },
+];
+
+const agencyLocationsByCity = {
+  lima: {
+    shalom: "Shalom Lima - Av. Nicolás Arriola 1723, La Victoria",
+    olva: "Olva Lima - Av. Javier Prado Este 1750, San Isidro",
+  },
+  huacho: {
+    shalom: "Shalom Huacho - Av. 28 de Julio 645, Cercado",
+    olva: "Olva Huacho - Panamericana Norte 502, Cercado",
+  },
+  canete: {
+    shalom: "Shalom Cañete - Av. Mariscal Benavides 398, San Vicente",
+    olva: "Olva Cañete - Jr. 2 de Mayo 250, Imperial",
+  },
+  arequipa: {
+    shalom: "Shalom Arequipa - Av. Parra 253, Cercado",
+    olva: "Olva Arequipa - Av. Víctor Andrés Belaunde 216, Umacollo",
+  },
+  camana: {
+    shalom: "Shalom Camaná - Jr. 28 de Julio 324, Cercado",
+    olva: "Olva Camaná - Av. Lima 412, Cercado",
+  },
+  cusco: {
+    shalom: "Shalom Cusco - Av. Manco Cápac 410, Wanchaq",
+    olva: "Olva Cusco - Av. de la Cultura 1205, Wanchaq",
+  },
+  sicuani: {
+    shalom: "Shalom Sicuani - Jr. 2 de Mayo 315, Cercado",
+    olva: "Olva Sicuani - Av. Arequipa 240, Cercado",
+  },
+  puno: {
+    shalom: "Shalom Puno - Jr. Los Incas 245, Cercado",
+    olva: "Olva Puno - Jr. Lima 430, Cercado",
+  },
+  juliaca: {
+    shalom: "Shalom Juliaca - Av. Circunvalación Este 1180",
+    olva: "Olva Juliaca - Jr. San Román 585, Cercado",
+  },
+  ilave: {
+    shalom: "Shalom Ilave - Jr. Puno 210, Cercado",
+    olva: "Olva Ilave - Jr. San Martín 156, Plaza principal",
+  },
+  trujillo: {
+    shalom: "Shalom Trujillo - Av. América Norte 1350, Urb. Primavera",
+    olva: "Olva Trujillo - Av. América Sur 2850",
+  },
+  chepen: {
+    shalom: "Shalom Chepén - Jr. Lima 530, Cercado",
+    olva: "Olva Chepén - Av. Gonzales Cáceres 410",
+  },
+  chiclayo: {
+    shalom: "Shalom Chiclayo - Av. Bolognesi 638",
+    olva: "Olva Chiclayo - Av. Balta 1075",
+  },
+  lambayeque: {
+    shalom: "Shalom Lambayeque - Av. Ramón Castilla 480",
+    olva: "Olva Lambayeque - Jr. 8 de Octubre 390",
+  },
+  piura: {
+    shalom: "Shalom Piura - Av. Guardia Civil 875, Castilla",
+    olva: "Olva Piura - Av. Grau 1532",
+  },
+  sullana: {
+    shalom: "Shalom Sullana - Transversal Tarapaca 360",
+    olva: "Olva Sullana - Av. José de Lama 945",
+  },
+  huancayo: {
+    shalom: "Shalom Huancayo - Av. Ferrocarril 1465, El Tambo",
+    olva: "Olva Huancayo - Jr. Real 1255",
+  },
+  tarma: {
+    shalom: "Shalom Tarma - Jr. Lima 420, Cercado",
+    olva: "Olva Tarma - Jr. Arequipa 315",
+  },
+};
+
+function getSelectedRegion(regionId) {
+  return peruRegions.find((region) => region.id === regionId) || null;
+}
+
+function getSelectedCity(regionId, cityId) {
+  return getSelectedRegion(regionId)?.cities.find((city) => city.id === cityId) || null;
+}
+
+function getCityAgencies(cityId) {
+  return agencyLocationsByCity[cityId] || null;
+}
+
+function getMapUrl(agencyName) {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    `${agencyName} Perú`
+  )}`;
+}
+
 export default function Carrito({ cartItems: passedCartItems, setCartItems: setPassedCartItems }) {
   const [cartItems, setCartItems] = useState(passedCartItems || [{ ...PRODUCT, quantity: 1 }]);
-  const [deliveryType, setDeliveryType] = useState("pickup");
+  const deliveryType = "agency";
   const [agency, setAgency] = useState("shalom");
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
+  const [checkoutStep, setCheckoutStep] = useState("delivery");
   const [paymentLoading, setPaymentLoading] = useState(false);
   const [paymentError, setPaymentError] = useState("");
   const [paymentSuccess, setPaymentSuccess] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("qr");
   const [formErrors, setFormErrors] = useState({});
+  const [deliveryData, setDeliveryData] = useState({
+    contactName: "",
+    contactPhone: "",
+    region: "",
+    city: "",
+  });
   const [paymentData, setPaymentData] = useState({
     cardNumber: "",
     cardExpiration: "",
     cardCvc: "",
-    buyerName: "",
-    buyerPhone: "",
+    paymentReference: "",
   });
   const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
   const cartItemsRef = useRef(null);
 
-  const shippingCost = deliveryType === "agency" ? 8 : 0;
+  const shippingCost = 8;
   const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const total = subtotal + shippingCost;
   const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  const pointsToEarn = calculatePointsForOrder(total);
+  const selectedRegion = getSelectedRegion(deliveryData.region);
+  const selectedCity = getSelectedCity(deliveryData.region, deliveryData.city);
+  const cityAgencies = getCityAgencies(deliveryData.city);
+  const selectedAgencyLocation = cityAgencies?.[agency] || "";
 
   useEffect(() => {
     const root = document.documentElement;
@@ -119,7 +292,48 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
     updateCartItems(items => items.filter(item => (item.id || item.name) !== id));
   };
 
-  const validatePaymentForm = () => {
+  const resetCheckout = () => {
+    setIsPaymentOpen(false);
+    setCheckoutStep("delivery");
+    setPaymentSuccess(false);
+    setPaymentError("");
+    setDeliveryData({
+      contactName: "",
+      contactPhone: "",
+      region: "",
+      city: "",
+    });
+    setPaymentData({
+      cardNumber: "",
+      cardExpiration: "",
+      cardCvc: "",
+      paymentReference: "",
+    });
+    setPaymentMethod("qr");
+    setFormErrors({});
+  };
+
+  const validateDeliveryStep = () => {
+    const errors = {};
+
+    if (!deliveryData.contactName || deliveryData.contactName.trim().length < 3) {
+      errors.contactName = "Nombre requerido";
+    }
+    if (!deliveryData.contactPhone || deliveryData.contactPhone.replace(/\D/g, '').length < 9) {
+      errors.contactPhone = "Teléfono inválido";
+    }
+    if (!deliveryData.region) {
+      errors.region = "Región requerida";
+    }
+    if (!deliveryData.city.trim()) {
+      errors.city = "Ciudad requerida";
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const validatePaymentStep = () => {
     const errors = {};
     
     if (paymentMethod === "card") {
@@ -133,15 +347,29 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
         errors.cardCvc = "CVC inválido";
       }
     }
-    if (!paymentData.buyerName || paymentData.buyerName.trim().length < 3) {
-      errors.buyerName = "Nombre requerido";
-    }
-    if (!paymentData.buyerPhone || paymentData.buyerPhone.replace(/\D/g, '').length < 9) {
-      errors.buyerPhone = "Teléfono inválido";
-    }
 
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
+  };
+
+  const goToPaymentStep = () => {
+    if (!validateDeliveryStep()) {
+      return;
+    }
+
+    setFormErrors({});
+    setPaymentError("");
+    setCheckoutStep("payment");
+  };
+
+  const goToReviewStep = () => {
+    if (!validatePaymentStep()) {
+      return;
+    }
+
+    setFormErrors({});
+    setPaymentError("");
+    setCheckoutStep("review");
   };
 
   const handlePayButtonClick = () => {
@@ -153,13 +381,20 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
       navigate("/login");
       return;
     }
+    setCheckoutStep("delivery");
+    setPaymentError("");
+    setFormErrors({});
     setIsPaymentOpen(true);
   };
 
-  const handleConfirmPayment = async (e) => {
-    e.preventDefault();
-    
-    if (!validatePaymentForm()) {
+  const handleConfirmPayment = async () => {
+    if (!validateDeliveryStep()) {
+      setCheckoutStep("delivery");
+      return;
+    }
+
+    if (!validatePaymentStep()) {
+      setCheckoutStep("payment");
       return;
     }
 
@@ -182,8 +417,18 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
         })),
         total,
         deliveryType,
-        agency: deliveryType === "agency" ? agency : null,
+        agency,
+        deliveryDetails: {
+          contactName: deliveryData.contactName.trim(),
+          contactPhone: deliveryData.contactPhone,
+          region: selectedRegion?.name,
+          city: selectedCity?.name,
+          address: selectedAgencyLocation,
+          agencyLocation: selectedAgencyLocation,
+        },
         paymentMethod,
+        paymentReference:
+          paymentMethod === "qr" ? paymentData.paymentReference.trim() : null,
       };
 
       const result = await createOrder(orderData);
@@ -194,17 +439,7 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
         
         setTimeout(() => {
           updateCartItems([]);
-          setIsPaymentOpen(false);
-          setPaymentSuccess(false);
-          setPaymentData({
-            cardNumber: "",
-            cardExpiration: "",
-            cardCvc: "",
-            buyerName: "",
-            buyerPhone: "",
-          });
-          setPaymentMethod("qr");
-          setFormErrors({});
+          resetCheckout();
         }, 2000);
       }, 1000);
     } catch (error) {
@@ -292,52 +527,20 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
 
           <article className={styles.deliveryCard}>
             <div className={styles.optionsGroup}>
-              <h2>Tipo de entrega</h2>
+              <h2>Entrega virtual</h2>
 
-              <div className={styles.deliveryOptions}>
-                <button
-                  className={`${styles.deliveryOption} ${deliveryType === "pickup" ? styles.active : ""}`}
-                  type="button"
-                  onClick={() => setDeliveryType("pickup")}
-                  aria-pressed={deliveryType === "pickup"}
-                  title="Recoger en tienda"
-                >
-                  <FaStore />
-                  <span>Recoger en tienda</span>
-                </button>
-
-                <button
-                  className={`${styles.deliveryOption} ${deliveryType === "agency" ? styles.active : ""}`}
-                  type="button"
-                  onClick={() => setDeliveryType("agency")}
-                  aria-pressed={deliveryType === "agency"}
-                  title="Envío por agencia"
-                >
-                  <FaTruck />
-                  <span>Envío por agencia</span>
-                </button>
+              <div className={styles.virtualDeliveryNote}>
+                <FaTruck />
+                <span>Envío por agencia a nivel nacional</span>
               </div>
             </div>
 
             <div className={styles.addressBlock}>
-              <span>
-                {deliveryType === "pickup"
-                  ? "Dirección del local"
-                  : "Envío por agencia"}
-              </span>
-              <p>
-                {deliveryType === "pickup"
-                  ? "Av. Los Cafetales 123, Puno"
-                  : "Coordinaremos la direccion por WhatsApp despues del pago."}
-              </p>
+              <span>Envío por agencia</span>
+              <p>Elige Shalom u Olva. Luego coordinaremos el código de recojo por WhatsApp.</p>
             </div>
 
-            <div
-              className={`${styles.optionsGroup} ${styles.agencyGroup} ${
-                deliveryType !== "agency" ? styles.inactiveAgency : ""
-              }`}
-              aria-hidden={deliveryType !== "agency"}
-            >
+            <div className={`${styles.optionsGroup} ${styles.agencyGroup}`}>
               <h3>Elige agencia</h3>
               <div className={styles.agencyOptions}>
                 <button
@@ -345,7 +548,6 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
                   type="button"
                   onClick={() => setAgency("shalom")}
                   aria-pressed={agency === "shalom"}
-                  disabled={deliveryType !== "agency"}
                 >
                   Shalom
                 </button>
@@ -354,7 +556,6 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
                   type="button"
                   onClick={() => setAgency("olva")}
                   aria-pressed={agency === "olva"}
-                  disabled={deliveryType !== "agency"}
                 >
                   Olva
                 </button>
@@ -374,6 +575,10 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
                 <span>Total</span>
                 <strong>S/ {total.toFixed(2)}</strong>
               </div>
+              <div className={`${styles.pricingRow} ${styles.pointsRow}`}>
+                <span>Puntos a ganar</span>
+                <strong>+{pointsToEarn} pts</strong>
+              </div>
             </div>
           </article>
 
@@ -382,7 +587,7 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
             onClick={handlePayButtonClick}
             disabled={cartItems.length === 0}
           >
-            <FaShoppingCart /> Pagar
+            <FaShoppingCart /> Continuar compra
           </button>
         </aside>
       </div>
@@ -392,20 +597,7 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
           <div className={styles.paymentModal}>
             <button
               className={styles.closeButton}
-              onClick={() => {
-                setIsPaymentOpen(false);
-                setPaymentSuccess(false);
-                setPaymentError("");
-                setPaymentData({
-                  cardNumber: "",
-                  cardExpiration: "",
-                  cardCvc: "",
-                  buyerName: "",
-                  buyerPhone: "",
-                });
-                setPaymentMethod("qr");
-                setFormErrors({});
-              }}
+              onClick={resetCheckout}
             >
               ✕
             </button>
@@ -420,7 +612,7 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
                 <p>Tu orden ha sido creada y se está descargando el comprobante...</p>
               </div>
             ) : (
-              <form className={styles.paymentForm} onSubmit={handleConfirmPayment}>
+              <div className={styles.paymentForm}>
                 {paymentError && (
                   <div style={{
                     backgroundColor: "#fee",
@@ -433,6 +625,146 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
                     {paymentError}
                   </div>
                 )}
+
+                <div className={styles.checkoutSteps} aria-label="Progreso de compra">
+                  <span className={checkoutStep === "delivery" ? styles.currentStep : ""}>Entrega</span>
+                  <span className={checkoutStep === "payment" ? styles.currentStep : ""}>Pago</span>
+                  <span className={checkoutStep === "review" ? styles.currentStep : ""}>Confirmar</span>
+                </div>
+
+                {checkoutStep === "delivery" && (
+                  <div className={styles.checkoutPanel}>
+                    <div className={styles.stepTitle}>
+                      <span>Paso 1</span>
+                      <h2>Entrega y contacto</h2>
+                    </div>
+
+                    <div className={styles.virtualDeliveryNote}>
+                      <FaTruck />
+                      <span>Envío por agencia. Somos una marca virtual y coordinamos el recojo por WhatsApp.</span>
+                    </div>
+
+                    <label htmlFor="contact-name">Nombre de contacto</label>
+                    <input
+                      id="contact-name"
+                      placeholder="Nombre y apellido"
+                      value={deliveryData.contactName}
+                      onChange={(event) => {
+                        setDeliveryData({ ...deliveryData, contactName: event.target.value });
+                        setFormErrors({ ...formErrors, contactName: "" });
+                      }}
+                    />
+                    {formErrors.contactName && <span className={styles.fieldError}>{formErrors.contactName}</span>}
+
+                    <label htmlFor="contact-phone">Teléfono de contacto</label>
+                    <input
+                      id="contact-phone"
+                      inputMode="tel"
+                      placeholder="999 999 999"
+                      value={deliveryData.contactPhone}
+                      onChange={(event) => {
+                        const val = event.target.value.replace(/\D/g, "").slice(0, 9);
+                        setDeliveryData({ ...deliveryData, contactPhone: val });
+                        setFormErrors({ ...formErrors, contactPhone: "" });
+                      }}
+                    />
+                    {formErrors.contactPhone && <span className={styles.fieldError}>{formErrors.contactPhone}</span>}
+
+                    <div className={styles.agencyOptions}>
+                      <button
+                        className={`${styles.agencyOption} ${agency === "shalom" ? styles.active : ""}`}
+                        type="button"
+                        onClick={() => setAgency("shalom")}
+                        aria-pressed={agency === "shalom"}
+                      >
+                        Shalom
+                      </button>
+                      <button
+                        className={`${styles.agencyOption} ${agency === "olva" ? styles.active : ""}`}
+                        type="button"
+                        onClick={() => setAgency("olva")}
+                        aria-pressed={agency === "olva"}
+                      >
+                        Olva
+                      </button>
+                    </div>
+
+                    <label htmlFor="delivery-region">Región</label>
+                    <select
+                      id="delivery-region"
+                      value={deliveryData.region}
+                      onChange={(event) => {
+                        setDeliveryData({
+                          ...deliveryData,
+                          region: event.target.value,
+                          city: "",
+                        });
+                        setFormErrors({ ...formErrors, region: "", city: "" });
+                      }}
+                    >
+                      <option value="">Selecciona una región</option>
+                      {peruRegions.map((region) => (
+                        <option key={region.id} value={region.id}>
+                          {region.name}
+                        </option>
+                      ))}
+                    </select>
+                    {formErrors.region && <span className={styles.fieldError}>{formErrors.region}</span>}
+
+                    <label htmlFor="delivery-city">Ciudad</label>
+                    <select
+                      id="delivery-city"
+                      value={deliveryData.city}
+                      onChange={(event) => {
+                        setDeliveryData({ ...deliveryData, city: event.target.value });
+                        setFormErrors({ ...formErrors, city: "" });
+                      }}
+                      disabled={!selectedRegion}
+                    >
+                      <option value="">Selecciona una ciudad</option>
+                      {selectedRegion?.cities.map((city) => (
+                        <option key={city.id} value={city.id}>
+                          {city.name}
+                        </option>
+                      ))}
+                    </select>
+                    {formErrors.city && <span className={styles.fieldError}>{formErrors.city}</span>}
+
+                    <div className={styles.agencySuggestion}>
+                      <span>Agencia elegida en esta ciudad</span>
+                      {selectedAgencyLocation ? (
+                        <div className={styles.agencyList}>
+                          <article>
+                            <div>
+                              <strong>{agency === "shalom" ? "Shalom" : "Olva"}</strong>
+                              <p>{selectedAgencyLocation}</p>
+                            </div>
+                            <a
+                              href={getMapUrl(selectedAgencyLocation)}
+                              rel="noreferrer"
+                              target="_blank"
+                            >
+                              Ver en el mapa
+                            </a>
+                          </article>
+                        </div>
+                      ) : (
+                        <p>Elige región y ciudad para ver la agencia seleccionada.</p>
+                      )}
+                    </div>
+
+                    <button className={styles.confirmPayment} type="button" onClick={goToPaymentStep}>
+                      Continuar a pago
+                    </button>
+                  </div>
+                )}
+
+                {checkoutStep === "payment" && (
+                  <div className={styles.checkoutPanel}>
+                    <div className={styles.stepTitle}>
+                      <span>Paso 2</span>
+                      <h2>Método de pago</h2>
+                    </div>
 
                 <div className={styles.paymentMethodTabs} aria-label="Método de pago">
                   <button
@@ -461,7 +793,7 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
 
                 {paymentMethod === "card" && (
                   <>
-                    <label htmlFor="card-number">Tarjeta de credito</label>
+                    <label htmlFor="card-number">Tarjeta de crédito</label>
                     <div className={styles.cardInput}>
                       <input
                         id="card-number"
@@ -522,7 +854,7 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
                   <div className={styles.qrPayment}>
                     <div>
                       <h3>Pago con QR</h3>
-                      <p>Escanea el codigo con Yape o Plin y confirma para generar tu pedido.</p>
+                      <p>Escanea el código con Yape o Plin y confirma para generar tu pedido.</p>
                       <div className={styles.wallets}>
                         <img src={plinImage} alt="Plin" />
                         <img src={yapeImage} alt="Yape" />
@@ -536,44 +868,112 @@ export default function Carrito({ cartItems: passedCartItems, setCartItems: setP
                   </div>
                 )}
 
-                <label htmlFor="buyer-name">Nombre de contacto</label>
-                <input 
-                  id="buyer-name" 
-                  placeholder="Nombre y apellido"
-                  value={paymentData.buyerName}
-                  onChange={(e) => {
-                    setPaymentData({ ...paymentData, buyerName: e.target.value });
-                    setFormErrors({ ...formErrors, buyerName: '' });
-                  }}
-                />
-                {formErrors.buyerName && <span style={{ color: '#c00', fontSize: '0.85rem' }}>{formErrors.buyerName}</span>}
+                    {paymentMethod === "qr" && (
+                      <>
+                        <label htmlFor="payment-reference">Nro. de operación opcional</label>
+                        <input
+                          id="payment-reference"
+                          placeholder="Ej. 123456789"
+                          value={paymentData.paymentReference}
+                          onChange={(event) =>
+                            setPaymentData({
+                              ...paymentData,
+                              paymentReference: event.target.value,
+                            })
+                          }
+                        />
+                      </>
+                    )}
 
-                <label htmlFor="buyer-phone">Teléfono de contacto</label>
-                <input 
-                  id="buyer-phone" 
-                  inputMode="tel" 
-                  placeholder="999 999 999"
-                  value={paymentData.buyerPhone}
-                  onChange={(e) => {
-                    const val = e.target.value.replace(/\D/g, '').slice(0, 9);
-                    setPaymentData({ ...paymentData, buyerPhone: val });
-                    setFormErrors({ ...formErrors, buyerPhone: '' });
-                  }}
-                />
-                {formErrors.buyerPhone && <span style={{ color: '#c00', fontSize: '0.85rem' }}>{formErrors.buyerPhone}</span>}
+                    <div className={styles.checkoutActions}>
+                      <button
+                        className={styles.secondaryButton}
+                        type="button"
+                        onClick={() => {
+                          setCheckoutStep("delivery");
+                          setFormErrors({});
+                        }}
+                      >
+                        Volver
+                      </button>
+                      <button className={styles.confirmPayment} type="button" onClick={goToReviewStep}>
+                        Revisar pedido
+                      </button>
+                    </div>
+                  </div>
+                )}
 
-                <button 
-                  className={styles.confirmPayment} 
-                  type="submit"
-                  disabled={paymentLoading}
-                >
-                  {paymentLoading
-                    ? "Procesando..."
-                    : paymentMethod === "qr"
-                      ? `Confirmar pago S/ ${total.toFixed(2)}`
-                      : `Pagar S/ ${total.toFixed(2)}`}
-                </button>
-              </form>
+                {checkoutStep === "review" && (
+                  <div className={styles.checkoutPanel}>
+                    <div className={styles.stepTitle}>
+                      <span>Paso 3</span>
+                      <h2>Confirma tu pedido</h2>
+                    </div>
+
+                    <div className={styles.reviewBox}>
+                      <div>
+                        <span>Contacto</span>
+                        <strong>{deliveryData.contactName}</strong>
+                        <p>{deliveryData.contactPhone}</p>
+                      </div>
+                      <div className={styles.reviewProducts}>
+                        <span>Productos</span>
+                        <ul>
+                          {cartItems.map((item) => {
+                            const itemKey = item.id || item.name;
+                            const itemTotal = item.price * item.quantity;
+
+                            return (
+                              <li key={itemKey}>
+                                <img src={item.image || productImage} alt="" aria-hidden="true" />
+                                <div>
+                                  <strong>{item.name}</strong>
+                                  <p>
+                                    {item.quantity} x {item.weight} · S/ {itemTotal.toFixed(2)}
+                                  </p>
+                                </div>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
+                      <div>
+                        <span>Entrega</span>
+                        <strong>Agencia {agency === "shalom" ? "Shalom" : "Olva"}</strong>
+                        <p>{`${selectedCity?.name || ""}, ${selectedRegion?.name || ""}. ${selectedAgencyLocation}`}</p>
+                      </div>
+                      <div>
+                        <span>Pago</span>
+                        <strong>{paymentMethod === "qr" ? "Yape / Plin" : "Tarjeta"}</strong>
+                        <p>Total: S/ {total.toFixed(2)}</p>
+                      </div>
+                      <div>
+                        <span>Puntos Tunki</span>
+                        <strong>+{pointsToEarn} pts</strong>
+                        <p>Se sumarán a tu cuenta al confirmar la compra.</p>
+                      </div>
+                    </div>
+
+                    <div className={styles.checkoutActions}>
+                      <button
+                        className={styles.secondaryButton}
+                        type="button"
+                        onClick={() => setCheckoutStep("payment")}
+                      >
+                        Volver
+                      </button>
+                      <button
+                        className={styles.confirmPayment}
+                        type="button"
+                        disabled={paymentLoading}
+                        onClick={handleConfirmPayment}
+                      >
+                        {paymentLoading ? "Procesando..." : `Confirmar pedido S/ ${total.toFixed(2)}`}
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             )}
           </div>
         </div>

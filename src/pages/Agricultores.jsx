@@ -48,7 +48,7 @@ export default function Agricultores() {
           Trabajamos junto a agricultores de comunidades peruanas que cultivan
           café de especialidad de manera responsable y sostenible. Nuestro
           compromiso es valorar su trabajo, respetar el origen del café y
-          compartir contigo una experiencia autentica en cada taza.
+          compartir contigo una experiencia auténtica en cada taza.
         </p>
       </section>
 
@@ -56,11 +56,11 @@ export default function Agricultores() {
         <article className={styles.profileRow}>
           <div className={styles.imageWrap}>
             <img className={styles.beanOne} src={coffeeBean} alt="" aria-hidden="true" />
-            <img src={farmerOne} alt="Raul Mamani cosechando cafe" />
+            <img src={farmerOne} alt="Raúl Mamani cosechando café" />
           </div>
           <div className={styles.profileText}>
             <span className={styles.profileNumber}>01</span>
-            <h2>Raul Mamani</h2>
+            <h2>Raúl Mamani</h2>
             <strong>Putina Punco, Puno</strong>
             <p>
               Productor de café de especialidad comprometido con la calidad,
@@ -88,7 +88,7 @@ export default function Agricultores() {
 
       <section className={styles.gallerySection}>
         <h2>
-          Gracias al trabajo de nuestros agricultores, cada taza de Tunki Café
+          Gracias al trabajo de nuestros agricultores, cada taza de Tunki Coffee
           lleva consigo historia, origen y autenticidad.
         </h2>
 

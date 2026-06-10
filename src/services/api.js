@@ -1,3 +1,5 @@
+import { calculatePointsForOrder } from "./rewards.js";
+
 const ORDERS_STORAGE_PREFIX = "tunkiOrders:";
 
 function getSavedUser() {
@@ -30,6 +32,7 @@ export async function createOrder(orderData) {
     userId: user.id,
     userEmail: user.email,
     ...orderData,
+    pointsEarned: calculatePointsForOrder(orderData.total),
     status: "completada",
     createdAt: new Date().toISOString(),
   };

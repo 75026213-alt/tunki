@@ -7,10 +7,12 @@ import {
   FaPhone,
   FaSignOutAlt,
   FaShoppingBag,
+  FaStar,
   FaUser,
   FaUserCog,
 } from "react-icons/fa";
 import { useAuth } from "../../hooks/useAuth.js";
+import { getOrderPoints, getUserRewardSummary } from "../../services/rewards.js";
 import styles from "./Profile.module.css";
 
 const sections = [
@@ -31,6 +33,20 @@ export default function Profile() {
     const savedOrders = localStorage.getItem(`tunkiOrders:${user.id}`);
     return savedOrders ? JSON.parse(savedOrders) : [];
   }, [user]);
+  const redemptions = useMemo(() => {
+    if (!user) {
+      return [];
+    }
+
+    const savedRedemptions = localStorage.getItem(
+      `tunkiRewardRedemptions:${user.id}`
+    );
+    return savedRedemptions ? JSON.parse(savedRedemptions) : [];
+  }, [user]);
+  const rewardSummary = useMemo(
+    () => getUserRewardSummary(orders, redemptions),
+    [orders, redemptions]
+  );
 
   const handleLogout = () => {
     logout();
@@ -93,6 +109,24 @@ export default function Profile() {
                 <div>
                   <h2>{displayName}</h2>
                   <p>Puno, Perú</p>
+                </div>
+              </div>
+
+              <div className={styles.pointsCard}>
+                <div className={styles.pointsIcon}>
+                  <FaStar />
+                </div>
+                <div>
+                  <span>Puntos Tunki</span>
+                  <strong>{rewardSummary.availablePoints} pts</strong>
+                  <p>
+                    {rewardSummary.pointsToNext === 0
+                      ? "Ya tienes premios disponibles para canjear."
+                      : `Te faltan ${rewardSummary.pointsToNext} pts para ${rewardSummary.nextReward.title}.`}
+                  </p>
+                </div>
+                <div className={styles.pointsProgress} aria-hidden="true">
+                  <span style={{ width: `${rewardSummary.progress}%` }} />
                 </div>
               </div>
 
@@ -175,6 +209,7 @@ export default function Profile() {
                       </div>
                       <div className={styles.orderTotal}>
                         <span>S/ {order.total.toFixed(2)}</span>
+                        <small>+{getOrderPoints(order)} pts</small>
                       </div>
                     </div>
                   ))}
