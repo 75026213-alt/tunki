@@ -2,9 +2,12 @@ import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaGift, FaMugHot, FaStar } from "react-icons/fa";
 import styles from "./PremiosTunki.module.css";
-import cafeBag from "../assets/home/bolsa-cafe.png";
-import cafeCup from "../assets/home/tasa.png";
-import cafeHero from "../assets/cafe/cafe.png";
+import heroPrize from "../assets/premios/premios.png";
+import heroSeed from "../assets/premios/semilla.png";
+import heroCup from "../assets/premios/taza.png";
+import rewardBenefits from "../assets/premios/tipos/beneficios.jpeg";
+import rewardCata from "../assets/premios/tipos/cata.png";
+import rewardPack from "../assets/premios/tipos/pack.png";
 import { useAuth } from "../hooks/useAuth.js";
 import {
   createRewardRedemption,
@@ -14,6 +17,11 @@ import {
 import { downloadRewardPDF } from "../services/pdf.js";
 
 const rewardIcons = [<FaMugHot />, <FaGift />, <FaStar />];
+const rewardImages = {
+  "beneficio-premium": rewardBenefits,
+  "cata-tunki": rewardCata,
+  "pack-especial": rewardPack,
+};
 
 export default function PremiosTunki() {
   const { user } = useAuth();
@@ -82,9 +90,9 @@ export default function PremiosTunki() {
         </div>
 
         <div className={styles.heroVisual} aria-hidden="true">
-          <img className={styles.coffeeBag} src={cafeBag} alt="" />
-          <img className={styles.coffeeBean} src={cafeHero} alt="" />
-          <img className={styles.coffeeCup} src={cafeCup} alt="" />
+          <img className={styles.heroSeed} src={heroSeed} alt="" />
+          <img className={styles.heroPrize} src={heroPrize} alt="" />
+          <img className={styles.heroCup} src={heroCup} alt="" />
         </div>
       </div>
 
@@ -146,7 +154,14 @@ export default function PremiosTunki() {
               }`}
               key={reward.title}
             >
-              <div className={styles.rewardIcon}>{rewardIcons[index]}</div>
+              <div className={styles.rewardImageWrap}>
+                <img
+                  className={styles.rewardImage}
+                  src={rewardImages[reward.id]}
+                  alt={reward.title}
+                />
+                <div className={styles.rewardIcon}>{rewardIcons[index]}</div>
+              </div>
               <span>{reward.pointsRequired} pts</span>
               <h3>{reward.title}</h3>
               <p>{reward.description}</p>

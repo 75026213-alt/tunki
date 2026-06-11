@@ -65,37 +65,37 @@
   border-radius: 50%;
   box-shadow: 0 30px 80px rgba(13, 61, 42, 0.28);
   content: "";
-  height: min(78%, 450px);
+  height: min(84%, 480px);
   position: absolute;
-  width: min(78%, 450px);
+  width: min(84%, 480px);
 }
 
-.coffeeBag,
-.coffeeBean,
-.coffeeCup {
-  filter: drop-shadow(18px 28px 22px rgba(0, 0, 0, 0.24));
+.heroPrize,
+.heroSeed,
+.heroCup {
+  filter: drop-shadow(16px 24px 22px rgba(0, 0, 0, 0.24));
   object-fit: contain;
   position: absolute;
 }
 
-.coffeeBag {
-  right: 12%;
-  top: 12%;
-  width: min(44%, 235px);
-  z-index: 2;
-}
-
-.coffeeBean {
-  left: 5%;
-  top: 24%;
-  width: min(42%, 220px);
+.heroPrize {
+  right: -1%;
+  top: 7%;
+  width: min(54%, 320px);
   z-index: 3;
 }
 
-.coffeeCup {
-  bottom: 10%;
-  right: 22%;
-  width: min(48%, 255px);
+.heroSeed {
+  left: -1%;
+  top: 24%;
+  width: min(42%, 240px);
+  z-index: 2;
+}
+
+.heroCup {
+  bottom: 2%;
+  left: 34%;
+  width: min(31%, 170px);
   z-index: 4;
 }
 
@@ -235,12 +235,27 @@
   box-sizing: border-box;
   display: grid;
   min-height: 270px;
-  padding: 28px;
+  overflow: hidden;
+  padding: 0 28px 28px;
 }
 
 .unlockedReward {
   border-color: rgba(49, 91, 57, 0.56);
   box-shadow: 0 22px 54px rgba(49, 91, 57, 0.2);
+}
+
+.rewardImageWrap {
+  aspect-ratio: 1.28;
+  margin: 0 -28px 24px;
+  overflow: hidden;
+  position: relative;
+}
+
+.rewardImage {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
 }
 
 .rewardIcon {
@@ -250,8 +265,10 @@
   display: grid;
   font-size: 1.35rem;
   height: 54px;
-  margin-bottom: 28px;
   place-items: center;
+  position: absolute;
+  bottom: 16px;
+  left: 18px;
   width: 54px;
 }
 
@@ -335,8 +352,15 @@
   }
 
   .pointsPanel,
-  .walletPanel,
-  .rewardCard {
+  .walletPanel {
     padding: 22px;
+  }
+
+  .rewardCard {
+    padding: 0 22px 22px;
+  }
+
+  .rewardImageWrap {
+    margin: 0 -22px 22px;
   }
 }
